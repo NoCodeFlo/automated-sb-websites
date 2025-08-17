@@ -1,0 +1,321 @@
+Below is a structured, designer-friendly breakdown of each page, based directly on the supplied HTML. I’ve reused the exact on-page text where available, listed images with their available “alt” text (or noted when none exists), described the layout/sections, and pulled the visible brand colors from inline styles/CSS tokens.
+
+PAGE: https://lichtweg.li/
+1) Page URL
+- https://lichtweg.li/
+
+2) Purpose
+- Homepage introducing Praxis Lichtweg and its practitioner, with an “About” narrative and a “Contact” section featuring address, phone, a 20-minute introductory conversation offer, and a contact form.
+
+3) Overall layout and page sections
+- Fixed top navigation (brand text link “Praxis Lichtweg” + main menu + search)
+- Main content
+  - About section (background image, centered profile image and introduction text)
+  - Contact section (“Dein Weg zu mir”) with address, phone, map embed and a contact form
+- Footer (repeated site menu + theme credit)
+- Floating Telegram “Follow me” button
+
+4) Main headings (h1–h6)
+- h2: “Sabina Thalia Brunschweiler”
+- h5: “was mir auch wichtig ist….”
+- h2 (section title in Contact area): “Dein Weg zu mir”
+- h4 (card title in Contact form): “Kontaktiere mich”
+(Note: The brand name “Praxis Lichtweg” is presented as a navbar brand and not a semantic h1. The template uses h2/h5 etc. in content areas.)
+
+5) Text content (exact)
+- About section text:
+  - “Sabina Thalia Brunschweiler”
+  - “Ist Energie-Arbeit eine echte Alternative?”
+  - “Oder nur Hokuspokus?”
+  - “Ich folge meiner Berufung seit über 12 Jahren.”
+  - “Als Energie-Arbeiterin, Lichtmensch, Hawaiianische Therapeutin, LNB Schmerztherapeutin  begleite ich grosse und kleine Menschen um auf Ihrem eigenem Erden-Weg anzukommen.”
+  - “Ich bin ich, mit all meinem Sein und meinen Gaben.”
+  - “Mit meiner Arbeit möchte ich Dich inspirieren, dich etwas anstupsen um über gewisse Dinge etwas nach zu denken. Ich möchte Dir zur Seite stehen, Dich stärken und unterstützen, damit Du auf Deinen eigenen Weg findest und Dich wieder mit dir Selbst verbindest. Ich möchte Dir zeigen wie Du dich selbst nähren kannst und Deine Selbstheilungskräfte aktivierst um Dir selbst und Deine Liebsten zu unterstützen. Ich möchte Dir zeigen was für einen Goldschatz in Dir drin ist damit Du ihn endlich entdecken und bergen kannst.”
+  - “Das Du das hier gerade liest ist kein Zufall,”
+  - “Nein,”
+  - “den es fällt einem Zu was Fällig ist….”
+  - “Wenn Du Dich für echte und tiefe Entwicklung deiner Selbst interessierst und das natürlich auch wenn nicht alles immer so einfach, glatt und easy passiert. Wenn du bereit bist eigenverantwortung für Dein Leben zu übernehmen. Wenn dein Herz etwas hüpft, dein Bauch kribbelt, wen es um Energie-Arbeit und das Dazwischen geht und Du eine Herzbegleiterin suchst.”
+  - “”
+  - “Jaaa dann, bist Du hier genau richtig ”
+  - “Eine Behandlung bei mir ist nicht Standart, kein Kozept das ich durcharbeite. Wenn du zu mir kommst, offne ich ein Tor für dich, damit ich dich sehen kann. Die Energie wird stärker wenn ich dir zuhöre, der Weg wird klarer. Meine Arbeit geht so das ich mich auf dich einlasse, auf deine Seelenebene und dich als Mensch. Manchmal steht Heilung im Vordergrund manchmal das Potenzial und seine Umsetztung. Dafür  braucht es manchmal mehrere Schritte, manchmal reicht auch ein Termin. Ganz auf dich abgestimmt.”
+  - “Sei also Herzlich Willkommen hier in meiner Welt.”
+  - Sub-section heading: “was mir auch wichtig ist….”
+  - Bullet-style statements (as paragraphs):
+    - “Niemand kann Dich heilen, aber Du dich.. ich kann Dich dabei unterstützen.”
+    - “ja, ich bin auch der Schweigeplicht unterlegen…”
+    - “Energiearbeit ersetzt den Arzt nicht, aber unterstützt.”
+    - “Ich bin nicht Krankenkassen anerkannt, aber dein Geld wert.”
+    - “Ich bin auf Deine Verbindlichkeit angewiesen.”
+    - “ Termine die nicht 24h vorher storniert oder verschoben werden, stelle ich in Rechnung.”
+    - “Alle Angebote können in bar oder per Twint beglichen werden.”
+    - “ich stelle Dir ich auch gerne Gutscheine aus.”
+- Contact section:
+  - Heading: “Dein Weg zu mir”
+  - Description area (with links inline):
+    - “Deine Chance”
+    - “Nutze die Möglichkeit für Dein kostenloses”
+    - “20-Minuten Kennenlern-Gespräch”
+    - “Neuenkirchstrasse 19 • 6203 Sempach Station • 079 381 09 10”
+    - (A Google map iframe is embedded)
+
+6) Image content (with alt)
+- Section background image:
+  - URL: http://lichtweg.li/wp-content/uploads/2022/12/Zen-path-of-stones-in-sunset.jpg
+  - Alt: No alt text available.
+- Profile image in About section:
+  - URL: http://lichtweg.li/wp-content/uploads/2022/12/Sabina-3.jpg
+  - Alt: No alt text available.
+- Favicon/App Icons (not typically reused in content; included for completeness):
+  - 32x32: https://lichtweg.li/wp-content/uploads/2022/12/cropped-Zen-path-of-stones-in-sunset-32x32.jpg (No alt text available.)
+  - 192x192: https://lichtweg.li/wp-content/uploads/2022/12/cropped-Zen-path-of-stones-in-sunset-192x192.jpg (No alt text available.)
+  - 180x180 (apple touch): https://lichtweg.li/wp-content/uploads/2022/12/cropped-Zen-path-of-stones-in-sunset-180x180.jpg (No alt text available.)
+
+7) Primary and secondary colors (from visible CSS)
+- Primary: #e91e63 (var --hestia-primary-color)
+- Secondary: #a81d84 (header gradient color token)
+- Additional visible theme colors:
+  - Background color token: #ff1c1c
+  - Top bar background: #363537
+
+
+PAGE: https://lichtweg.li/index.php/instagram/
+1) Page URL
+- https://lichtweg.li/index.php/instagram/
+
+2) Purpose
+- Social media hub page to showcase a live Instagram feed and encourage following the account.
+
+3) Overall layout and page sections
+- Fixed top navigation (brand + main menu + search)
+- Header area (small header)
+- Main content:
+  - Page title
+  - Intro paragraph “Folge mir auf Instagram:”
+  - Instagram feed grid (dynamic, shows images, carousels, and reels with “Load More” and “Follow on Instagram” button)
+- Footer (menu + theme credit)
+- Telegram “Follow me” button
+
+4) Main headings (h1–h6)
+- h1: “Instagram”
+
+5) Text content (exact)
+- “Instagram”
+- “Folge mir auf Instagram:”
+- Buttons/labels within the feed:
+  - “Load More”
+  - “Follow on Instagram”
+
+6) Image content (sample from feed; many more load dynamically)
+- Feed header avatar:
+  - URL (avatar): listed via Instagram CDN (dynamic); not typically reused in rebuilds.
+- Sample posts (first items in the feed as present in HTML; alt text shown as provided):
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/531072540_18146339461407611_25417456876916796_nfull.webp
+    - Alt: “Instagram post 17942487083912352”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/521127808_18143873440407611_1509871232854900554_nfull.webp
+    - Alt: “Instagram post 18036119126401225”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/518950177_18143647702407611_1796737678656586672_nfull.webp
+    - Alt: “Instagram post 18282882796257600”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/518976649_18143647660407611_985227597275011855_nfull.webp
+    - Alt: “Instagram post 17907674871067318”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/518540560_18143467897407611_1796471349868944658_nfull.webp
+    - Alt: “Instagram post 18056523197356583”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/504384425_18142900576407611_8337420488107164059_nfull.webp
+    - Alt: “Instagram post 18069661877080865”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/516749441_2598801667178704_7095210115656183572_nfull.webp
+    - Alt: “Instagram post 17864341689352068”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/502388640_18141583918407611_4028833374385482260_nfull.webp
+    - Alt: “Instagram post 18097034347589389”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/479697417_18129649615407611_1742502606650647840_nfull.webp
+    - Alt: “Instagram post 17933780033993335”
+  - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/479695805_18129560563407611_8523757585957365217_nfull.webp
+    - Alt: “🌲🏔☃️”
+  - …and more as per the feed (up to 20 per load).
+- Note: Some feed items are videos; thumbnails are used by the plugin in the grid.
+
+7) Primary and secondary colors
+- Primary: #e91e63
+- Secondary: #a81d84
+- Additional visible: background token #ff1c1c; top bar #363537
+
+
+PAGE: https://lichtweg.li/index.php/sabina-thalia/
+1) Page URL
+- https://lichtweg.li/index.php/sabina-thalia/
+
+2) Purpose
+- About/biography page for “Sabina Thalia,” detailing background, life path, and practice philosophy.
+
+3) Overall layout and page sections
+- Fixed top navigation
+- Header area with background image (Zen stones image)
+- Main content:
+  - Page title and biography text (multiple paragraphs with bold emphasis on intro lines)
+- Footer and Telegram button
+
+4) Main headings (h1–h6)
+- h1: “Sabina Thalia”
+
+5) Text content (exact)
+- “Ich bin…. Sabina Thalia,” (bold, with line breaks)
+- “und bin im Aargau geboren und aufgewachsen. Habe meine Ausbildungen gemacht und dann sogar ein eigenes Kosmetik – Studio eröffnet. Dies lief sehr gut und ich war auch enorm stolz. Teilten mir meine Kunden auch immer mit, das ich heilende Hände habe. Ja schon in dieser Zeit, hat sich meine Kindheit wieder gezeigt, denn ich habe meine Kunden sehr tief gespürt. Schon in meiner Kindheit hatte ich einen ganz bestimmten Zugang zur Spiritualität und dies war für mich ganz normal.”
+- “Als ich dann heiratete, habe ich mich für meine Familie entschieden, um voll und ganz für sie da zu sein. Ich habe diese Zeit mit meinen beiden tollen Töchtern genossen. Dieser Abschnitt meines Lebens sollte nicht ewig halten und so zog ich nach meiner Scheidung in den Kanton Luzern. Hier wurde ich wieder mit meinen mir gegebenen Essenzen und Talenten konfrontiert. Die ich ja als Kind schon kannte. Meine Gabe mit den Wesen der Natur zu kommunizieren war für mich normal. Nur für meine Mitmenschen nicht, es brachte mir den Status eines Sonderlings ein. Dadurch hatte ich mich dann etwas davon abgewandt.”
+- “Als ich dann hier in Sempach Station wieder intensiver damit konfrontiert wurde, war es nicht immer leicht für mich. Anfänglich waren mir all diese Gaben unheimlich, weil ich nicht genau wusste was ich damit anfangen sollte. Jedoch durfte ich schnell lernen, je mehr ich mich wehrte gegen mein Sein, desto unruhiger und unglücklicher wurde ich. Also fing ich an, mich zu informieren und weiter zu bilden.”
+- “Nun bin ich in meinem Sein angekommen darf meine Gaben der spirituellen Energiearbeit, als Coach, Wegbegleiterin, Therapeutin, Lehrerin anwenden und dich ganzheitlich begleiten. In meiner wunderschönen Praxis in Sempach Station.”
+- “Hier geht es mir darum meine Klienten in die Selbstliebe zu führen. Ihnen zu zeigen wer sie selber sind. Mein eigener Weg und meine Erfahrungen machen es mir möglich, meine Klienten genau dort abzuholen, wo sie meine Unterstützung benötigen. Somit können sich die manifestierten Krankheiten, Schmerzen oder Gedankenmuster auflösen und sie können ein wunderschönes Leben in Liebe und Dankbarkeit führen.”
+- “Ich freue mich auf Dich”
+
+6) Image content
+- Header background image:
+  - URL: https://lichtweg.li/wp-content/uploads/2022/12/Zen-path-of-stones-in-sunset.jpg
+  - Alt: No alt text available.
+
+7) Primary and secondary colors
+- Primary: #e91e63
+- Secondary: #a81d84
+- Additional: background token #ff1c1c; top bar #363537
+
+
+PAGE: https://lichtweg.li/index.php/meine-praxis-fotos-video/
+1) Page URL
+- https://lichtweg.li/index.php/meine-praxis-fotos-video/
+
+2) Purpose
+- Photo gallery page showing images of the practice, modalities, and therapy dog.
+
+3) Overall layout and page sections
+- Fixed navigation
+- Header area (small header)
+- Main content:
+  - Page title “Meine Praxis”
+  - Subheading “Fotos:”
+  - A WordPress Gallery block with three images + captions
+  - A Photo Gallery plugin grid with multiple thumbnails/lightbox
+- Footer + Telegram button
+
+4) Main headings (h1–h6)
+- h1: “Meine Praxis”
+- h3: “Fotos:”
+
+5) Text content (exact)
+- “Meine Praxis”
+- “Fotos:”
+- Figcaptions (from first gallery):
+  - “Muschel für die Muschelbalance”
+  - “Muschelbalance”
+  - “Unser Therapiehund Bruce”
+
+6) Image content
+- WordPress Gallery block images:
+  - http://lichtweg.li/wp-content/uploads/2025/04/20240611_115301-Kopie-1024x1024.jpg
+    - Alt: No alt text available.
+    - Caption: “Muschel für die Muschelbalance”
+  - http://lichtweg.li/wp-content/uploads/2025/04/20230917_115851-768x1024.jpg
+    - Alt: No alt text available.
+    - Caption: “Muschelbalance”
+  - http://lichtweg.li/wp-content/uploads/2025/04/20240715_141451-1024x1024.jpg
+    - Alt: No alt text available.
+    - Caption: “Unser Therapiehund Bruce”
+- Photo Gallery plugin thumbnails (examples; all have alt/title visible):
+  - Praxis-1 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-1.jpg?bwg=1689011039
+    - Alt: “Praxis-1”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-1.jpg?bwg=1689011039
+  - 20240125_132251 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/20240125_132251.jpg?bwg=1750344479
+    - Alt: “20240125 132251”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/20240125_132251.jpg?bwg=1750344479
+  - Vollmond Shakti-Feuer (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/imported_from_media_libray/thumb/20230604_192217-scaled.jpg?bwg=1750344782
+    - Alt: “Vollmond Shakti-Feuer”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/imported_from_media_libray/20230604_192217-scaled.jpg?bwg=1750344782
+  - Praxis-2 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-2.jpg?bwg=1689011039
+    - Alt: “Praxis-2”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-2.jpg?bwg=1689011039
+  - Praxis-3 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-3.jpg?bwg=1689011039
+    - Alt: “Praxis-3”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-3.jpg?bwg=1689011039
+  - SUP (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/IMG_20200805_204039.jpg?bwg=1750346056
+    - Alt: “SUP”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/IMG_20200805_204039.jpg?bwg=1750346056
+  - Praxis-4 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-4.jpg?bwg=1689011039
+    - Alt: “Praxis-4”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-4.jpg?bwg=1689011039
+  - Praxis-7 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-7.jpg?bwg=1689011039
+    - Alt: “Praxis-7”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-7.jpg?bwg=1689011039
+  - Praxis-6 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-6.jpg?bwg=1689011039
+    - Alt: “Praxis-6”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-6.jpg?bwg=1689011039
+  - Praxis-5 (thumb):
+    - https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-5.jpg?bwg=1689011039
+    - Alt: “Praxis-5”
+    - Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-5.jpg?bwg=1689011039
+
+7) Primary and secondary colors
+- Primary: #e91e63
+- Secondary: #a81d84
+- Additional: #ff1c1c; #363537
+
+
+PAGE: https://lichtweg.li/index.php/kinesiologie-touch-for-health/
+1) Page URL
+- https://lichtweg.li/index.php/kinesiologie-touch-for-health/
+
+2) Purpose
+- Service page for “Kinesiologie – Touch for Health.” The HTML header metadata describes the service and approach.
+
+3) Overall layout and page sections
+- Based on site conventions: top navigation, header area, main content area for the service description, footer. The extracted HTML is incomplete; main visible copy is not included in the snippet.
+
+4) Main headings (h1–h6)
+- From metadata/title: “Kinesiologie - Touch for Health - Praxis Lichtweg”
+- In keeping with the site, this page likely uses an h1 of the page title, but the visible h1 content is not available in the provided HTML snippet.
+
+5) Text content
+- Because no visible in-body text was included in the supplied HTML, use placeholder copy until the actual text is retrieved:
+  - Placeholder suggestion:
+    - “Gesund durch Berühren – Kinesiologie (Touch for Health) unterstützt den Energiefluss im Körper. Über Muskeltests und sanfte Balancen werden Blockaden gelöst, Wohlbefinden gefördert und Selbstheilungskräfte aktiviert.”
+    - “Ablauf einer Sitzung: Kurzes Vorgespräch, individuelle Zielsetzung, Balance mit Muskeltests, Abschluss und Hinweise zur Integration im Alltag.”
+    - “Geeignet bei Stress, Erschöpfung, Lern- und Konzentrationsthemen, körperlichen Verspannungen und als Begleitung in Entwicklungsprozessen.”
+- Note: Replace these placeholders with the page’s actual content once available.
+
+6) Image content
+- Not visible in the provided snippet. Use a suitable placeholder if needed in the rebuild (e.g., neutral wellness-themed image with “No alt text available.”) until the real images are retrieved.
+
+7) Primary and secondary colors
+- Primary: #e91e63
+- Secondary: #a81d84
+- Additional: #ff1c1c; #363537
+
+
+Global navigation (same across pages)
+- Menu items (as displayed):
+  - Willkommen
+  - Instagram
+  - Sabina Thalia
+  - Meine Praxis
+  - Kinesiologie – Touch for Health
+  - Energie Arbeit
+  - Kristallisieren
+  - Raunächte
+  - Hawaiianische Massage
+  - Schmerz
+  - Events
+  - Workshop – die Essenz deines Seins
+  - Fernbehandlung
+- Search field in the navbar
+- Footer repeats the menu and includes theme credit.
+
+Notes for rebuild
+- Reuse the “Zen-path-of-stones-in-sunset.jpg” image as a page background/hero image where present.
+- Keep the About page’s centered layout and the long-form narrative paragraphs intact.
+- Preserve the “Dein Weg zu mir” callout text, address/phone, and the 20-minute introductory conversation text as is.
+- Recreate the contact form fields: Name, E-Mail, Mitteilung, and submit button labeled “Absenden” (no need to replicate reCAPTCHA in static mocks).
+- For images without alt attributes, label as “No alt text available.” For the gallery and Instagram items, use the provided alt text.
+- Use brand color #e91e63 prominently (buttons/links/accents), with #a81d84 for gradients/secondary accents, and maintain the dark top bar tone #363537 if using a top bar. Background token #ff1c1c appears site-wide but should be applied carefully in modern design for accessibility.

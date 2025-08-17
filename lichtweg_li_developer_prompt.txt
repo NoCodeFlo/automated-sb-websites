@@ -1,0 +1,213 @@
+Developer brief: Rebuild “Praxis Lichtweg” website
+
+1) Source URL
+- https://lichtweg.li/
+
+2) Project overview and goals
+- Rebuild the existing site using the same content, structure, and purpose, but present it in a cleaner, more modern, and more accessible UI.
+- Maintain the existing design language (colors, imagery, mood) and site architecture.
+- Improve usability, responsiveness, accessibility, and loading performance.
+- Do not invent new copy. Use the exact text from the live pages listed below. If something is missing in this brief, copy it from the live page at the given URL.
+
+3) Brand, tone, and design language
+- Tone/feel: warm, calm, caring, welcoming; modern and clean with gentle wellness/holistic cues.
+- Primary color: #e91e63 (buttons, key links, active states).
+- Secondary color: #a81d84 (secondary accents/gradients).
+- Dark top bar background: #363537.
+- Use the Zen stones path image as a signature visual.
+- Keep overall minimal, readable, and airy; prioritize legibility and generous white space.
+
+4) Technologies to consider (keep lightweight)
+- Semantic HTML5, CSS (custom properties/variables for colors and spacing), and vanilla JS.
+- CSS Grid/Flexbox for layout. Mobile-first responsive design.
+- Optional: a utility-first approach (e.g., Tailwind) or simple SCSS; keep bundle light.
+- No heavy plugins. Build statically with progressive enhancement.
+
+5) Global layout and navigation (applies to all pages)
+- Header/nav:
+  - Left: brand text link “Praxis Lichtweg” linking to home.
+  - Right: main menu with these items (same wording/order):
+    - Willkommen
+    - Instagram
+    - Sabina Thalia
+    - Meine Praxis
+    - Kinesiologie – Touch for Health
+    - Energie Arbeit
+    - Kristallisieren
+    - Raunächte
+    - Hawaiianische Massage
+    - Schmerz
+    - Events
+    - Workshop – die Essenz deines Seins
+    - Fernbehandlung
+  - Include a search field at the end of the navbar (UI only; no backend needed).
+  - Styling: dark top bar (#363537), brand/links in accessible contrast, active/hover accents with #e91e63.
+  - Make the header sticky on scroll.
+- Footer:
+  - Repeat the site menu for easy access.
+  - Keep it simple and clean; no need to include theme credit from the original.
+- Floating Telegram button:
+  - Recreate the floating “Follow me” button and reuse the exact external Telegram link from the current live site (copy the href as-is).
+- Accessibility:
+  - Provide a logical heading hierarchy per page (ensure a single visible or visually-hidden h1 is present on each page).
+  - Keyboard focus styles visible; skip link to main content.
+  - Sufficient color contrast for text/buttons.
+  - All interactive elements have accessible names.
+- Performance:
+  - Use responsive images (srcset/sizes), width/height attributes, and lazy-loading (loading="lazy") for non-critical images.
+  - Inline critical CSS or ensure fast first paint. Keep JS minimal.
+
+6) Page-by-page implementation
+
+A) Home (https://lichtweg.li/)
+- Structure:
+  - Add an h1 for the page for semantics. You may use a visually-hidden h1 such as “Praxis Lichtweg – Sabina Thalia Brunschweiler” (text sourced from existing brand/name) to avoid visual change.
+- About section:
+  - Background image (full-bleed, subtle overlay for legibility):
+    - http://lichtweg.li/wp-content/uploads/2022/12/Zen-path-of-stones-in-sunset.jpg
+    - alt: decorative (apply as CSS background; no alt needed).
+  - Centered profile image (use a circle or soft-rounded style):
+    - http://lichtweg.li/wp-content/uploads/2022/12/Sabina-3.jpg
+    - alt: “No alt text available.”
+  - Headings/text: Use the exact text and sequencing from the analysis (German copy), including:
+    - h2: “Sabina Thalia Brunschweiler”
+    - The full narrative and bullet-like statements listed in the analysis, including “was mir auch wichtig ist….” as an h5 or h3 (improve hierarchy for accessibility but keep the text).
+  - Typography/layout:
+    - Comfortable line-height, max-content width ~65–75ch.
+    - Visually group the “was mir auch wichtig ist….” statements in a styled list or stacked cards for readability.
+- Contact section (“Dein Weg zu mir”):
+  - Heading: h2 “Dein Weg zu mir”
+  - Content (use exactly as provided):
+    - “Deine Chance”
+    - “Nutze die Möglichkeit für Dein kostenloses”
+    - “20-Minuten Kennenlern-Gespräch”
+    - Address/phone on one line: “Neuenkirchstrasse 19 • 6203 Sempach Station • 079 381 09 10”
+  - Make the phone number a tel: link. Keep German punctuation/spacing.
+  - Map: reuse the exact Google Maps iframe from the current live page (copy the embed code).
+  - Contact form (front-end only):
+    - Title: h4 “Kontaktiere mich”
+    - Fields: Name, E-Mail, Mitteilung, Submit button labeled “Absenden”.
+    - Implement labels, accessible error messages, and basic client-side validation.
+- Visual accents:
+  - Use #e91e63 for primary buttons/links; #a81d84 for subtle gradients or secondary buttons.
+  - Keep backgrounds mostly neutral/white for readability; avoid large solid #ff1c1c areas (it’s present in the old theme but fails contrast in many contexts).
+
+B) Instagram page (https://lichtweg.li/index.php/instagram/)
+- Header area: small header consistent with site.
+- Main content:
+  - h1: “Instagram”
+  - Intro paragraph: “Folge mir auf Instagram:”
+  - Replace the dynamic feed with a static, performant grid (3 or 4 columns responsive) using existing on-site cached images. Use these direct image URLs and their provided alt text:
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/531072540_18146339461407611_25417456876916796_nfull.webp (alt: “Instagram post 17942487083912352”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/521127808_18143873440407611_1509871232854900554_nfull.webp (alt: “Instagram post 18036119126401225”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/518950177_18143647702407611_1796737678656586672_nfull.webp (alt: “Instagram post 18282882796257600”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/518976649_18143647660407611_985227597275011855_nfull.webp (alt: “Instagram post 17907674871067318”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/518540560_18143467897407611_1796471349868944658_nfull.webp (alt: “Instagram post 18056523197356583”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/504384425_18142900576407611_8337420488107164059_nfull.webp (alt: “Instagram post 18069661877080865”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/516749441_2598801667178704_7095210115656183572_nfull.webp (alt: “Instagram post 17864341689352068”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/502388640_18141583918407611_4028833374385482260_nfull.webp (alt: “Instagram post 18097034347589389”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/479697417_18129649615407611_1742502606650647840_nfull.webp (alt: “Instagram post 17933780033993335”)
+    - https://lichtweg.li/wp-content/uploads/sb-instagram-feed-images/479695805_18129560563407611_8523757585957365217_nfull.webp (alt: “🌲🏔☃️”)
+    - You can include a few more from the live page if needed, but keep the grid light for performance.
+  - Each thumbnail can open the full image in a basic lightbox or link to the full-size image; do not replicate Instagram’s UI.
+  - Include a “Follow on Instagram” button linking to the existing Instagram profile URL used on the current site’s button (copy the exact href).
+- Keep the floating Telegram button as on other pages.
+
+C) Sabina Thalia (https://lichtweg.li/index.php/sabina-thalia/)
+- Header with background image (full-bleed):
+  - https://lichtweg.li/wp-content/uploads/2022/12/Zen-path-of-stones-in-sunset.jpg (decorative background)
+- Main content:
+  - h1: “Sabina Thalia”
+  - Use the exact German text provided in the analysis, preserving line breaks and bold emphasis where present (e.g., “Ich bin…. Sabina Thalia,” in bold).
+  - Comfortable reading width and spacing.
+- Optional subtle pull-quotes or highlighted first line (CSS only) for visual interest; do not change copy.
+
+D) Meine Praxis – photos (https://lichtweg.li/index.php/meine-praxis-fotos-video/)
+- Main content:
+  - h1: “Meine Praxis”
+  - h3: “Fotos:”
+  - Recreate the first 3-image gallery with captions:
+    - http://lichtweg.li/wp-content/uploads/2025/04/20240611_115301-Kopie-1024x1024.jpg (caption: “Muschel für die Muschelbalance”, alt: “No alt text available.”)
+    - http://lichtweg.li/wp-content/uploads/2025/04/20230917_115851-768x1024.jpg (caption: “Muschelbalance”, alt: “No alt text available.”)
+    - http://lichtweg.li/wp-content/uploads/2025/04/20240715_141451-1024x1024.jpg (caption: “Unser Therapiehund Bruce”, alt: “No alt text available.”)
+  - Recreate a responsive thumbnail grid for the larger gallery. Use these image pairs (thumb -> full) and their alt text:
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-1.jpg?bwg=1689011039
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-1.jpg?bwg=1689011039
+      Alt: “Praxis-1”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/20240125_132251.jpg?bwg=1750344479
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/20240125_132251.jpg?bwg=1750344479
+      Alt: “20240125 132251”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/imported_from_media_libray/thumb/20230604_192217-scaled.jpg?bwg=1750344782
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/imported_from_media_libray/20230604_192217-scaled.jpg?bwg=1750344782
+      Alt: “Vollmond Shakti-Feuer”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-2.jpg?bwg=1689011039
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-2.jpg?bwg=1689011039
+      Alt: “Praxis-2”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-3.jpg?bwg=1689011039
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-3.jpg?bwg=1689011039
+      Alt: “Praxis-3”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/IMG_20200805_204039.jpg?bwg=1750346056
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/IMG_20200805_204039.jpg?bwg=1750346056
+      Alt: “SUP”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-4.jpg?bwg=1689011039
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-4.jpg?bwg=1689011039
+      Alt: “Praxis-4”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-7.jpg?bwg=1689011039
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-7.jpg?bwg=1689011039
+      Alt: “Praxis-7”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-6.jpg?bwg=1689011039
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-6.jpg?bwg=1689011039
+      Alt: “Praxis-6”
+    - Thumb: https://lichtweg.li/wp-content/uploads/photo-gallery/thumb/Praxis-5.jpg?bwg=1689011039
+      Full: https://lichtweg.li/wp-content/uploads/photo-gallery/Praxis-5.jpg?bwg=1689011039
+      Alt: “Praxis-5”
+  - Implement a simple, accessible lightbox for full-size viewing. Ensure keyboard navigation and focus trapping.
+
+E) Kinesiologie – Touch for Health (https://lichtweg.li/index.php/kinesiologie-touch-for-health/)
+- Structure:
+  - Header area similar to other service pages (may reuse the Zen stones background if it exists on the live page).
+  - h1 should be the page title (“Kinesiologie – Touch for Health”).
+- Content:
+  - IMPORTANT: Do not use placeholder text in the final build. Copy the actual visible body content from the live page at the URL above.
+  - If the live page currently has missing content, leave the section visually prepared (title + empty content note) but do not invent copy.
+- Images:
+  - If the live page includes images, reuse those exact URLs. If none are present, omit imagery rather than inserting stock.
+
+7) Accessibility and UX specifics
+- Headings: one h1 per page, followed by h2/h3… in order. Improve original structure where needed without changing the text itself.
+- Forms: explicitly associated labels, clear error messages, and descriptive button text.
+- Links: clear states (hover/focus/active) with sufficient contrast; phone numbers as tel: links.
+- Images:
+  - For images without provided alt, use alt="No alt text available." per the original guidance.
+  - Decorative visuals should be CSS backgrounds or have empty alt ("") if inserted as <img> purely for decoration.
+- Contrast: ensure text over images uses overlays or backgrounds to meet WCAG AA.
+- Motion: minimize parallax/heavy motion; respect prefers-reduced-motion.
+
+8) Constraints and content rules
+- Do not invent new copy or change the meaning of existing text. Keep the site language (German) and the exact phrasing, punctuation, and headings from the current site.
+- Keep the existing external links intact:
+  - Telegram floating button: reuse exact href from the live site.
+  - Instagram “Follow on Instagram”: reuse exact profile href from the live button.
+- Reuse provided images and their URLs. Do not substitute with stock imagery.
+- Maintain the overall color scheme (#e91e63, #a81d84, #363537). Avoid using the #ff1c1c background as a dominant color due to contrast concerns.
+- Preserve the “20-Minuten Kennenlern-Gespräch” callout, address, and phone as given.
+
+9) Deliverables
+- Fully responsive, accessible static front-end for:
+  - Home (with About, Contact, Map, Contact Form)
+  - Instagram (static image grid + “Follow on Instagram” button)
+  - Sabina Thalia (bio)
+  - Meine Praxis (galleries)
+  - Kinesiologie – Touch for Health (title + actual live-page content, no placeholders in final)
+- Global header/nav, footer, and floating Telegram button applied to all pages.
+- Visual design improvements that remain faithful to the existing brand and mood.
+- Production-ready HTML/CSS/JS files and assets wired to the exact image URLs provided/used by the live site.
+
+10) Notes on implementation details
+- Spacing scale and type: use a consistent modular scale for typography and spacing; a readable sans-serif (system-ui or Inter) with 1.5–1.7 line-height.
+- Container widths: max 1200px; content width ~720–800px for text-heavy sections.
+- Buttons: primary (#e91e63), rounded small radius, clear hover/focus states, large touch targets.
+- Forms: include aria-live polite region for validation messages; ensure color is not the only indicator of error.
+- SEO basics: meaningful titles/headings, meta description placeholders are fine but do not add new marketing copy.
+
+If anything in the live site differs from the analysis (additional text, images, or links), always defer to the live site and reuse that content verbatim.
