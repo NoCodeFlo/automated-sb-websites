@@ -6,16 +6,16 @@ import { URL } from 'url';
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const rootUrl = "https://lichtweg.li/";
-const OUTPUT_DIR = "output";
-const SCREENSHOT_DIR = path.join(OUTPUT_DIR, "screenshots");
+const urlSlug = new URL(rootUrl).hostname.replace(/[^a-z0-9]/gi, '_');
+const OUTPUT_BASE_DIR = "output";
+const WEBSITE_DIR = path.join(OUTPUT_BASE_DIR, urlSlug);
+const SCREENSHOT_DIR = path.join(WEBSITE_DIR, "screenshots");
 const SAVE_HTML = true;
 const MAX_DEPTH = 2;
-const GPT_CHAR_LIMIT = 120000 * 3; // Tripled GPT input limit
-
-const urlSlug = new URL(rootUrl).hostname.replace(/[^a-z0-9]/gi, '_');
+const GPT_CHAR_LIMIT = 120000 * 3;
 
 if (!OPENAI_API_KEY) {
-  console.error("\u274c Missing OpenAI API key in .env file.");
+  console.error("❌ Missing OpenAI API key in .env file.");
   process.exit(1);
 }
 
@@ -24,7 +24,6 @@ async function crawlWebsite(rootUrl) {
   const visited = new Set();
   const htmlMap = {};
 
-  await fs.mkdir(OUTPUT_DIR, { recursive: true });
   await fs.mkdir(SCREENSHOT_DIR, { recursive: true });
 
   async function crawl(url, depth = 0) {
@@ -33,7 +32,7 @@ async function crawlWebsite(rootUrl) {
 
     const page = await browser.newPage();
     try {
-      console.log(`\ud83c\udf10 Visiting (depth ${depth}): ${url}`);
+      console.log(`🌐 Visiting (depth ${depth}): ${url}`);
       await page.goto(url, { waitUntil: 'networkidle2' });
 
       const html = await page.content();
@@ -42,8 +41,8 @@ async function crawlWebsite(rootUrl) {
       htmlMap[url] = html;
 
       if (SAVE_HTML) {
-        const htmlPath = path.join(OUTPUT_DIR, `page-${safeName}.html`);
-        const txtPath = path.join(OUTPUT_DIR, `page-${safeName}.txt`);
+        const htmlPath = path.join(WEBSITE_DIR, `page-${safeName}.html`);
+        const txtPath = path.join(WEBSITE_DIR, `page-${safeName}.txt`);
         const screenshotPath = path.join(SCREENSHOT_DIR, `page-${safeName}.png`);
 
         await fs.writeFile(htmlPath, html);
@@ -189,21 +188,21 @@ async function callGPT(prompt) {
     console.log(`\n✅ Scraped ${Object.keys(htmlMap).length} unique pages.`);
 
     const analysisPrompt = buildAnalysisPrompt(htmlMap);
-    await fs.writeFile(`${urlSlug}_full_analysis_prompt.txt`, analysisPrompt);
+    await fs.writeFile(path.join(WEBSITE_DIR, `${urlSlug}_full_analysis_prompt.txt`), analysisPrompt);
 
     const gptTruncatedPrompt = analysisPrompt.slice(0, GPT_CHAR_LIMIT);
 
     console.log("\n🧠 Sending analysis to GPT...");
     const analysis = await callGPT(gptTruncatedPrompt);
-    await fs.writeFile(`${urlSlug}_site_analysis.txt`, analysis);
+    await fs.writeFile(path.join(WEBSITE_DIR, `${urlSlug}_site_analysis.txt`), analysis);
 
     console.log("\n📦 Building developer prompt based on analysis...");
     const devPromptText = buildDevPrompt(analysis);
-    await fs.writeFile(`${urlSlug}_full_developer_prompt.txt`, devPromptText);
+    await fs.writeFile(path.join(WEBSITE_DIR, `${urlSlug}_full_developer_prompt.txt`), devPromptText);
 
     console.log("\n🚀 Sending developer prompt to GPT...");
     const devPrompt = await callGPT(devPromptText);
-    await fs.writeFile(`${urlSlug}_developer_prompt.txt`, devPrompt);
+    await fs.writeFile(path.join(WEBSITE_DIR, `${urlSlug}_developer_prompt.txt`), devPrompt);
 
     console.log("\n✅ All done. Developer prompt saved.");
   } catch (err) {

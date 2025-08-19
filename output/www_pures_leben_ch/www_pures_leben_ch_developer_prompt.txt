@@ -1,0 +1,137 @@
+Developer prompt: Rebuild the human-verification interstitial for www.pures-leben.ch
+
+1) URL to rebuild
+- https://www.pures-leben.ch/
+
+2) Project overview and goals
+- Rebuild the currently visible page at the URL above. The page is a Cloudflare “Just a moment…” human-verification interstitial (Turnstile challenge), not the site’s actual homepage.
+- Reuse the exact existing content and structure captured in the analysis. Do not invent or add new content or pages.
+- Preserve the current design language (colors, minimalist layout, neutral mood) while improving usability, accessibility, responsiveness, and code quality.
+- Deliver a clean, standards-compliant, accessible, responsive single page that visually matches and feels like a modernized, polished version of the current interstitial.
+- Include existing external link(s) exactly as-is (Cloudflare attribution link). There are no social media links on this page.
+
+3) Section-by-section breakdown (single page)
+Implement the following as semantic, accessible HTML. Use meaningful roles and ARIA for status messages and live regions. Structure and copy must remain exactly as listed.
+
+A. Document and global
+- <html lang="en"> since the captured copy is English.
+- <head>
+  - <meta charset="utf-8">
+  - <meta name="viewport" content="width=device-width, initial-scale=1">
+  - <title>www.pures-leben.ch</title> (Keep minimal; do not invent other text)
+  - No remote fonts; use system fonts for performance.
+  - Support prefers-color-scheme for light/dark themes.
+- <body>
+  - Use a single, centered layout that scales gracefully from mobile to desktop.
+
+B. Main wrapper (role="main")
+- Container with max-width ~640px, centered vertically and horizontally with adequate padding and spacing.
+- h1 (site identifier):
+  - Text: “www.pures-leben.ch”
+- h2 (instructional subheading):
+  - Text: “Verify you are human by completing the action below.”
+- Challenge widget area (placeholder for Cloudflare Turnstile)
+  - A focusable region (role="region", aria-label="Human verification challenge") that will host the challenge widget if ever integrated.
+  - Do not add any new controls not present in the original. This is a placeholder container only.
+- Core explanatory message (paragraph, static text below the widget):
+  - Text: “www.pures-leben.ch needs to review the security of your connection before proceeding.”
+- Spinner/loader (hidden by default)
+  - Visually consistent animated spinner; expose via class toggle. Respect prefers-reduced-motion (provide a non-animated fallback).
+  - Accessible name/label is not required if purely decorative (aria-hidden="true").
+- Success message area (hidden by default; revealed on “success” state)
+  - h2: “Verification successful”
+  - Paragraph: “Waiting for www.pures-leben.ch to respond...”
+  - Wrap in a live region: role="status" aria-live="assertive".
+  - Include a decorative success icon (checkmark) adjacent to the heading; mark icon aria-hidden="true".
+- Error/notice area (optional hidden region for parity with original CSS icons)
+  - Reserve a region that could show an error icon/message if needed. Keep it hidden by default. Do not invent error text.
+
+C. Noscript fallback
+- <noscript> block with:
+  - h2: “Enable JavaScript and cookies to continue”
+  - Provide the text only; do not add extra guidance beyond what exists.
+
+D. Footer
+- Diagnostic wrapper:
+  - Text: “Ray ID: 9708ad504e0fb654” (use exactly this value from the captured page; do not generate dynamic IDs)
+- Attribution:
+  - Text: “Performance & security by Cloudflare”
+  - Link “Cloudflare” to https://www.cloudflare.com?utm_source=challenge&utm_campaign=m
+
+4) Images and icons
+- There are no <img> elements or hosted images to reference. Do not add new images.
+- Use small inline SVGs or CSS data URIs for the success and error icons (decorative only, aria-hidden="true"). No external icon libraries.
+
+5) Frontend tech to consider
+- HTML5 + modern, vanilla CSS (Flexbox/Grid) + minimal vanilla JS for state toggling.
+- Optional: SCSS or CSS variables for theming; no frameworks required.
+- Do not integrate Cloudflare’s actual Turnstile or any third-party scripts; this is a front-end rebuild only.
+
+6) Constraints and content that must not change
+- Do not add, remove, or rewrite copy. Use exactly:
+  - “www.pures-leben.ch”
+  - “Verify you are human by completing the action below.”
+  - “www.pures-leben.ch needs to review the security of your connection before proceeding.”
+  - “Verification successful”
+  - “Waiting for www.pures-leben.ch to respond...”
+  - “Enable JavaScript and cookies to continue”
+  - “Ray ID: 9708ad504e0fb654”
+  - “Performance & security by Cloudflare”
+- Preserve the existing Cloudflare link URL exactly.
+- No new pages, sections, or links. No social embeds.
+
+7) Tone and visual feel
+- Modern, clean, neutral, and minimal.
+- Clear hierarchy, generous whitespace, consistent spacing, and readable system fonts.
+- Respect the original palette and its light/dark variants.
+
+Color palette (from the captured styles; implement with CSS variables and dark-mode overrides):
+- Base text (light): #313131
+- Background (light): #ffffff
+- Background (dark): #222222
+- Border/light gray: #d9d9d9
+- Link/button default (light): #0051c3
+- Link/button hover/active (light): #003681
+- Link hover accent: #ee730a
+- Error icon (light): #fc574a
+- Dark theme accent red: #b20f03
+- Button color (dark): #4693ff
+- Spinner ring grays: #595959, #999999
+
+8) Accessibility and usability requirements
+- Semantic structure: main, headings in logical order, footer.
+- Announce status updates:
+  - role="status" aria-live="assertive" for the success state.
+  - aria-live="polite" for neutral progress if needed.
+- Focus management:
+  - Ensure focus-visible outlines are clearly visible in both themes.
+  - When states change (e.g., success), do not steal focus; rely on live regions.
+- Color contrast: WCAG AA minimum (4.5:1 for text).
+- Reduced motion: Honor prefers-reduced-motion for spinner/animations.
+- Keyboard-only support: All interactive regions must be reachable and discernible (the widget container region should be focusable if it would hold an embedded control).
+
+9) Responsive behavior
+- Mobile-first. Comfortable layout from 320px up.
+- Centered content with max-width ~640px; scale typography and spacing fluidly.
+- Avoid horizontal scrolling; ensure footer wraps nicely on small screens.
+
+10) Interactions/state handling (front-end only)
+- Default state: Show headings, widget container, and the explanatory message.
+- Pending state: When “verification” begins (e.g., class added for demo), show spinner and keep instructional text visible.
+- Success state: Reveal the success block and “Waiting …” message; keep spinner visible or swap to a subtle success indicator.
+- Error state: Reserve styling for an error icon region, but keep it hidden unless toggled for demonstration. Do not introduce new error copy.
+
+11) Performance and quality
+- No external font loads; use system fonts.
+- Ship minimal CSS and JS; avoid blocking the first render.
+- Validate HTML; test in modern evergreen browsers and iOS/Android mobile browsers.
+
+12) Deliverables
+- A single, production-ready HTML/CSS/JS implementation of the page described above that:
+  - Reuses the exact existing text content and structure
+  - Preserves the original design language and color palette (with light/dark support)
+  - Is responsive, accessible, and performant
+  - Includes the existing external Cloudflare link and the Ray ID text exactly as captured
+
+Notes
+- Do not attempt to bypass or replicate Cloudflare’s live verification logic. This task is strictly a front-end rebuild of the currently visible interstitial using the existing content and visual language.

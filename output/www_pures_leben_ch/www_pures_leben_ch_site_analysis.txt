@@ -1,0 +1,76 @@
+PAGE ANALYSIS: https://www.pures-leben.ch/
+
+1) Page URL
+- https://www.pures-leben.ch/
+
+2) Purpose of the page
+- This is a Cloudflare “Just a moment…” human-verification interstitial (Turnstile challenge). It is not the actual website homepage content. The purpose is to verify the visitor before allowing access to the real site.
+
+3) Overall layout and page sections
+- Main wrapper (role="main")
+  - Container “main-content”
+    - Site identifier heading
+    - Instructional subheading prompting human verification
+    - Cloudflare Turnstile widget area (empty placeholder in the HTML; rendered by script)
+    - Loading spinner (hidden by default)
+    - Core message explaining that the site needs to review the connection
+    - Success message area (hidden by default) with “Verification successful” and “Waiting for www.pures-leben.ch to respond...”
+    - Noscript fallback instruction to enable JavaScript and cookies
+- Footer
+  - Diagnostic wrapper showing Ray ID
+  - Attribution: “Performance & security by Cloudflare”
+
+4) Main headings (h1–h6)
+- h1: “www.pures-leben.ch”
+- h2: “Verify you are human by completing the action below.”
+- h2 (hidden until success): “Verification successful”
+- h2 (noscript fallback): “Enable JavaScript and cookies to continue”
+
+5) Text content (exact copy from the HTML)
+- “www.pures-leben.ch”
+- “Verify you are human by completing the action below.”
+- “www.pures-leben.ch needs to review the security of your connection before proceeding.”
+- “Verification successful”
+- “Waiting for www.pures-leben.ch to respond...”
+- “Enable JavaScript and cookies to continue”
+- Footer:
+  - “Ray ID: 9708ad504e0fb654”
+  - “Performance & security by Cloudflare” (with “Cloudflare” linked to https://www.cloudflare.com?utm_source=challenge&utm_campaign=m)
+
+6) Image content (links and alt)
+- No traditional <img> tags are present.
+- CSS background icons (inline SVG via data URLs) are used for:
+  - Success icon (checkmark in a circle) attached to #challenge-success-text
+  - Error/notice icon (exclamation) attached to #challenge-error-text
+- Alt text: No alt text available.
+- Hosted image links: Not applicable; the icons are inline data URIs embedded in CSS.
+
+7) Primary and secondary colors (observed in inline styles/CSS)
+- Text/base:
+  - #313131 (default text on light theme)
+  - #fff (light theme background)
+  - #222 (dark theme background)
+  - #d9d9d9 (borders/light gray elements)
+- Links and buttons (light theme):
+  - #0051c3 (link color; button background/border in default state)
+  - #003681 (button hover/active state)
+  - #ee730a (link hover accent)
+- Alerts/accents:
+  - #fc574a (error icon color in light theme)
+  - #b20f03 (red tone in dark theme)
+  - #4693ff (button color in dark theme)
+  - #595959 and #999 (spinner/loader ring colors)
+
+Notes for rebuilding
+- The page captured is the Cloudflare challenge screen, not the real homepage. There is no discoverable brand content, navigation, imagery, or business text to reuse from the actual site.
+- To proceed with a faithful rebuild of site pages, you will need either:
+  - Access past the Cloudflare challenge (IP allowlist or a shareable preview/link after verification), or
+  - An export of site content (text, images, styles) from the CMS or a design handoff.
+- If you want to recreate the verification experience itself, you can implement a similar layout:
+  - Large site identifier (h1) with domain name
+  - Subheading instructing verification
+  - Turnstile widget area
+  - Spinner for pending state
+  - Success message and waiting notice
+  - Footer with diagnostic token and “Performance & security by Cloudflare”
+  - Use the color palette above for a similar look and feel.
