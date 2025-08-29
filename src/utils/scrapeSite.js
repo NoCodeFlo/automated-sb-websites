@@ -28,6 +28,7 @@ export async function scrapeWebsite(rootUrl, outputBasePath) {
       await page.goto(url, { waitUntil: 'networkidle2' });
 
       const html = await page.content();
+      const visibleText = await page.evaluate(() => document.body?.innerText || '');
       const safeName = url.replace(rootUrl, '').replace(/[^a-z0-9]/gi, '_') || 'home';
 
       htmlMap[url] = html;
@@ -37,7 +38,7 @@ export async function scrapeWebsite(rootUrl, outputBasePath) {
       const screenshotPath = path.join(SCREENSHOT_DIR, `page-${safeName}.png`);
 
       await fs.writeFile(htmlPath, html);
-      await fs.writeFile(txtPath, html);
+      await fs.writeFile(txtPath, visibleText);
       await page.screenshot({ path: screenshotPath, fullPage: true });
 
       console.log(`✅ Saved: ${htmlPath} + .txt + screenshot`);

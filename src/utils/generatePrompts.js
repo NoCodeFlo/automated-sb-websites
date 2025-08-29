@@ -1,16 +1,11 @@
-import fs from 'fs/promises';
-import path from 'path';
-import fetch from 'node-fetch';
+// Utilities to build prompts for analysis and developer tasks.
+// This module deliberately does not call GPT or write files.
+// Callers should use src/utils/gptClient.js for model calls and
+// handle any persistence in their own layer.
 
-const GPT_CHAR_LIMIT = 120000 * 3; // Triple GPT input limit
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const GPT_CHAR_LIMIT = 120000 * 3; // Soft cap to keep prompts manageable
 
-if (!OPENAI_API_KEY) {
-  console.error("\u274c Missing OpenAI API key in .env file.");
-  process.exit(1);
-}
-
-function buildAnalysisPrompt(htmlMap) {
+export function buildAnalysisPrompt(htmlMap) {
   let prompt = `
 You are a professional web designer tasked with analyzing the structure and content of a real website. You will receive the full raw HTML of the homepage and all sub-pages.
 
@@ -55,7 +50,7 @@ Please format your output clearly, grouping the analysis by page.
   return prompt;
 }
 
-function buildDevPrompt(analysisText) {
+export function buildDevPrompt(analysisText) {
   return `
 You are an experienced senior web designer and mentor.
 
@@ -89,45 +84,12 @@ ${analysisText}
 `.trim();
 }
 
-async function callGPT(prompt) {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${OPENAI_API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "gpt-5",
-      messages: [{ role: "user", content: prompt }]
-    })
-  });
+export async function generatePrompts(htmlMap /*, urlSlug, siteOutputDir */) {
+  // Build prompts only; do not call GPT or write files here.
+  const analysisPrompt = buildAnalysisPrompt(htmlMap).slice(0, GPT_CHAR_LIMIT);
 
-  if (!res.ok) {
-    throw new Error(await res.text());
-  }
-
-  const data = await res.json();
-  return data.choices[0].message.content.trim();
+  // The developer prompt should be built by the caller using buildDevPrompt()
+  // after obtaining analysis text from GPT.
+  return { analysisPrompt };
 }
 
-export async function generatePrompts(htmlMap, urlSlug, siteOutputDir) {
-  const analysisPrompt = buildAnalysisPrompt(htmlMap);
-  const truncatedPrompt = analysisPrompt.slice(0, GPT_CHAR_LIMIT);
-
-  const analysis = await callGPT(truncatedPrompt);
-  await fs.writeFile(path.join(siteOutputDir, `${urlSlug}_site_analysis.txt`), analysis);
-  await fs.writeFile(path.join(siteOutputDir, `${urlSlug}_full_analysis_prompt.txt`), analysisPrompt);
-
-  const devPromptText = buildDevPrompt(analysis);
-  const devPrompt = await callGPT(devPromptText);
-
-  await fs.writeFile(path.join(siteOutputDir, `${urlSlug}_full_developer_prompt.txt`), devPromptText);
-  await fs.writeFile(path.join(siteOutputDir, `${urlSlug}_developer_prompt.txt`), devPrompt);
-
-  return {
-    analysisPrompt,
-    analysis,
-    devPromptText,
-    devPrompt
-  };
-}

@@ -3,9 +3,10 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs/promises';
 import { scrapeWebsite } from '../utils/scrapeSite.js';
-import { generatePrompts } from '../utils/generatePrompts.js';
+import { generatePrompts, buildDevPrompt } from '../utils/generatePrompts.js';
 import { callGPT } from '../utils/gptClient.js';
 import { createVercelProject, createVercelChat } from '../utils/vercelClient.js';
+import { slugifyUrl } from '../utils/slugifyUrl.js';
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Missing or invalid "url" field in request body.' });
   }
 
-  const domainSlug = new URL(url).hostname.replace(/[^a-z0-9]/gi, '_');
+  const domainSlug = slugifyUrl(url);
   const siteOutputDir = path.join('output', domainSlug);
 
   try {
@@ -26,19 +27,24 @@ router.post('/', async (req, res) => {
     const { htmlMap } = await scrapeWebsite(url, 'output');
 
     // Step 2: Generate GPT prompts
-    const { analysisPrompt, devPromptText } = await generatePrompts(htmlMap, domainSlug, siteOutputDir);
+    const { analysisPrompt } = await generatePrompts(htmlMap, domainSlug, siteOutputDir);
 
     // Step 3: Send analysis prompt to GPT
     console.log(`🧠 Calling GPT for site analysis...`);
     const analysisResult = await callGPT(analysisPrompt);
     const siteAnalysisPath = path.join(siteOutputDir, `${domainSlug}_site_analysis.txt`);
+    const fullAnalysisPromptPath = path.join(siteOutputDir, `${domainSlug}_full_analysis_prompt.txt`);
     await fs.writeFile(siteAnalysisPath, analysisResult);
+    await fs.writeFile(fullAnalysisPromptPath, analysisPrompt);
 
     // Step 4: Send developer prompt to GPT
     console.log(`💡 Calling GPT for developer prompt...`);
+    const devPromptText = buildDevPrompt(analysisResult);
     const devPromptResult = await callGPT(devPromptText);
     const devPromptPath = path.join(siteOutputDir, `${domainSlug}_developer_prompt.txt`);
+    const fullDevPromptPath = path.join(siteOutputDir, `${domainSlug}_full_developer_prompt.txt`);
     await fs.writeFile(devPromptPath, devPromptResult);
+    await fs.writeFile(fullDevPromptPath, devPromptText);
 
     // Step 5: Create Vercel project and chat
     const projectId = await createVercelProject(domainSlug);
@@ -50,8 +56,10 @@ router.post('/', async (req, res) => {
       projectId,
       chatId,
       files: {
+        siteAnalysisPath,
+        fullAnalysisPromptPath,
         devPromptPath,
-        siteAnalysisPath
+        fullDevPromptPath
       }
     });
 
