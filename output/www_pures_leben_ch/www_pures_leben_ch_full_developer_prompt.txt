@@ -26,79 +26,379 @@ Make sure your developer prompt includes:
 
 Below is the original website analysis:
 
-PAGE ANALYSIS: https://www.pures-leben.ch/
+Below is a page-by-page breakdown of the site you provided, focusing on structure, exact text, images, and color usage to help you rebuild the website accurately.
 
-1) Page URL
-- https://www.pures-leben.ch/
+PAGE: http://www.pures-leben.ch/
+1) URL
+- http://www.pures-leben.ch/
 
-2) Purpose of the page
-- This is a Cloudflare “Just a moment…” human-verification interstitial (Turnstile challenge). It is not the actual website homepage content. The purpose is to verify the visitor before allowing access to the real site.
+2) Purpose
+- Homepage introducing the practice “Pures Leben,” its philosophy, vision, and a high-level overview of support areas, with contact details in the footer area.
 
 3) Overall layout and page sections
-- Main wrapper (role="main")
-  - Container “main-content”
-    - Site identifier heading
-    - Instructional subheading prompting human verification
-    - Cloudflare Turnstile widget area (empty placeholder in the HTML; rendered by script)
-    - Loading spinner (hidden by default)
-    - Core message explaining that the site needs to review the connection
-    - Success message area (hidden by default) with “Verification successful” and “Waiting for www.pures-leben.ch to respond...”
-    - Noscript fallback instruction to enable JavaScript and cookies
-- Footer
-  - Diagnostic wrapper showing Ray ID
-  - Attribution: “Performance & security by Cloudflare”
+- Global header: Logo (image) and primary navigation.
+- Hero/Cover section: Full-width background image with headline and intro paragraph.
+- About section: Three subsections (“Meine Motivation,” “Meine Vision,” “Mein Angebot”) with detailed text.
+- Contact details section: Two columns with address and phone/email.
+- Footer: Legal links (Impressum, Datenschutz, Cookie-Einstellungen).
+- Cookie banner (overlay component).
 
 4) Main headings (h1–h6)
-- h1: “www.pures-leben.ch”
-- h2: “Verify you are human by completing the action below.”
-- h2 (hidden until success): “Verification successful”
-- h2 (noscript fallback): “Enable JavaScript and cookies to continue”
+- h1: Gut aufgehoben sein
+- h3: Meine Motivation
+- h3: Meine Vision
+- h3: Mein Angebot
 
-5) Text content (exact copy from the HTML)
-- “www.pures-leben.ch”
-- “Verify you are human by completing the action below.”
-- “www.pures-leben.ch needs to review the security of your connection before proceeding.”
-- “Verification successful”
-- “Waiting for www.pures-leben.ch to respond...”
-- “Enable JavaScript and cookies to continue”
-- Footer:
-  - “Ray ID: 9708ad504e0fb654”
-  - “Performance & security by Cloudflare” (with “Cloudflare” linked to https://www.cloudflare.com?utm_source=challenge&utm_campaign=m)
+5) Text content (exact text)
+- Hero:
+  - “Gut aufgehoben sein”
+  - “Wenn der Alltag an deinen Kräften zehrt, ist es nicht immer einfach in der Balance zu bleiben, was gesundheitliche Folgen haben kann. Auf Belastungen und Dauerstress kann dein Körper mit Krankheit, Erschöpfung, Schmerzen, Süchte, Verdauungsprobleme und vielem mehr reagieren. Gerne helfe ich dir Schritt für Schritt wieder ins Gleichgewicht zu kommen. Gerne unterstütze ich dich bei Schmerzen, chronischen Beschwerden, Verspannungen, Stress, Ängsten, Geburtstraumas, Hochsensibilität uvm. Gemeinsam lösen wir Blockaden, so dass die Energie wieder frei fliessen kann.”
+- About section:
+  - “Meine Motivation”
+  - “Es gibt Momente im Leben, da bricht das ganze Kartenhaus zusammen. Der Auslöser kann verschiedene Ursachen haben, wie Schmerzen, Krankheit, ein krankes Kind, traumatische Erlebnisse, Verlust einer geliebten Person oder manchmal auch einfach so, ohne Voranmeldung und ohne ersichtlichen Grund. Da ist man froh, wenn jemand da ist und hilft, die Karten wieder zu sortieren oder vielleicht sogar mal neu zu mischen.
+Meine Stärke liegt darin, ein sehr breites Angebot anbieten zu können und dich als Individuum wahr zu nehmen. Ich möchte gemeinsam mit dir heraus finden, wo sich bei dir allfällige Blockaden manifestiert haben und dir dabei helfen, diese zu lösen.
+Ich arbeite gerne ganzheitlich mit manuellen Therapieformen wie Massage, Bindegewebsmassage, Schmerztherapie nach Liebscher & Bracht sowie auch mit  Therapieformen aus dem Bereich Hypnosetherapie, Coaching und PSYCH-K. Wenn es passt lasse ich auch die Ernährung oder energetische Arbeit wie REIKI, Tensor, etc. noch mit einfliessen. Ich bin überzeugt, dass wir auch deine Energie wieder in den Fluss bringen.”
+  - “Meine Vision”
+  - “Mein Ziel ist es, dass du dich auf deine Stärken konzentrieren kannst, dein Leben rundum glücklich, schmerzfrei und gesund leben kannst, mit allen Hochs und Tiefs die dazu gehören.
+Visionen und Wünsche sind da, um umgesetzt zu werden. Ich unterstütze  dich dabei ins Handeln zu gehen, Verantwortung zu übernehmen und dein Leben zu leben. Ich freue mich, wenn du deinen Weg voller Freude gehst und dabei gesund & schmerzfrei bleibst oder wirst. ”
+  - “Mein Angebot”
+  - “Gerne begleite ich dich ganzheitlich, oft liegen körperliche und seelische Beschwerden eng beieinander.  Auf der körperlichen Behandlungsebene habe ich mich auf  Bindegewebsmassage und  Schmerztherapie spezialisiert, ich behandle subakute und chronifizierte Themen, wie z.b. Verdauungsbeschwerden, Erschöpfung, Stress, chronische Krankheiten, Schmerzen, Migräne uvm. 
 
-6) Image content (links and alt)
-- No traditional <img> tags are present.
-- CSS background icons (inline SVG via data URLs) are used for:
-  - Success icon (checkmark in a circle) attached to #challenge-success-text
-  - Error/notice icon (exclamation) attached to #challenge-error-text
-- Alt text: No alt text available.
-- Hosted image links: Not applicable; the icons are inline data URIs embedded in CSS.
+Jedoch ist selten das Problem nur auf körperlicher Ebene, meistens ist ein über längere Zeit bestehendes körperliches Problem zusammenhängend mit Stress, Ernährung, Ängste, Traumas etc. Darum schaue ich den Schmerz oder die Krankheit, die Blockade, die Angst immer aus ganzheitlicher Sicht an. Ich schaue dich als Individuum an und arbeite sowohl als Manual Therapeutin auf der körperlichen Ebene, aber auch als Lebensberaterin, Coach, Hypnosetherapeutin, Reiki, Ernährungsberaterin etc. auf mentaler bzw. ganzheitlicher Ebene. Gemeinsam mit dir lösen oder mindern wir diverse Beschwerden, Krankheiten, Ängste, Blockaden, Ticks. Ziel ist es, dass du DEINEN Weg gehen kannst und DEIN Leben voller Freude und Fülle leben kannst. Oft erlebe ich, dass die Kombination aus verschiedenen Ansätzen sehr wirkungsvoll ist. Als dipl. Lebenscoach, Psych-K Coach & Hypnosetherapeutin, Ayurveda Beraterin, Ernährungsberaterin i.A., Bindegewebsmassage, Schmerztherapeutin etc. kann ich auf all die Beschwerden eingehen und als Ganzes therapeutisch angehen.
+Ayurveda bedeutet "wissen des Lebens", dabei geht es um die Naturgesetze Ernährung, Yoga, Meditation uvm. Schlussendlich gehören bei mir die Themen Ernährung und Gesundheitsförderung im Alltag, weg von den Schadstoffen in den alltäglichen Produkten, hin zu natürlichen Produkten zur Unterstützung deiner Gesundheit, sowie Körperübungen (Pilates, Yoga, Dehnungen, Faszien Rollen etc.) Achtsamkeit & Dankbarkeit, Bewusstseinsförderung einfach dazu, um eine maximale Linderung der Beschwerden bis hin zur Schmerzfreiheit und maximale Gesundheit, Lebensfreude und Gelassenheit zu erlangen.
 
-7) Primary and secondary colors (observed in inline styles/CSS)
-- Text/base:
-  - #313131 (default text on light theme)
-  - #fff (light theme background)
-  - #222 (dark theme background)
-  - #d9d9d9 (borders/light gray elements)
-- Links and buttons (light theme):
-  - #0051c3 (link color; button background/border in default state)
-  - #003681 (button hover/active state)
-  - #ee730a (link hover accent)
-- Alerts/accents:
-  - #fc574a (error icon color in light theme)
-  - #b20f03 (red tone in dark theme)
-  - #4693ff (button color in dark theme)
-  - #595959 and #999 (spinner/loader ring colors)
+Als Body n'Brain Trainerin unterstütze ich dich oder deine Kinder, auf einfache spielerische Art bei Hyperaktivität, ADHS, Hochsensibilität, Konzentrationsschwäche, Lernschwäche, schulischen Probleme uvm. In Kombination mit anderen Therapieformen und eigenen Erfahrungen unterstütze ich dich auch gerne im Umgang mit deiner eigenen Hochsensibilität oder Umgang mit hochsensiblen, sensitiven, willensstarken Kindern.
+Gerne bin ich auch rund um das Thema Geburt, Schwangerschaft und Eltern-Sein für dich da. Ich bin ausgebildet in Hypnobirthing und mental Coach rund ums Thema Geburt, Geburtstraumas, Schwangerschaft oder auch nach der Geburt. Leider können schwierige Geburten oder Schwangerschaften noch lange nachwirken und den Start mit deinem Baby für die ganze Familie erschweren. 
 
-Notes for rebuilding
-- The page captured is the Cloudflare challenge screen, not the real homepage. There is no discoverable brand content, navigation, imagery, or business text to reuse from the actual site.
-- To proceed with a faithful rebuild of site pages, you will need either:
-  - Access past the Cloudflare challenge (IP allowlist or a shareable preview/link after verification), or
-  - An export of site content (text, images, styles) from the CMS or a design handoff.
-- If you want to recreate the verification experience itself, you can implement a similar layout:
-  - Large site identifier (h1) with domain name
-  - Subheading instructing verification
-  - Turnstile widget area
-  - Spinner for pending state
-  - Success message and waiting notice
-  - Footer with diagnostic token and “Performance & security by Cloudflare”
-  - Use the color palette above for a similar look and feel.
+Ich schöpfe aus einer Vielzahl von Werkzeugen aus meinen Aus- und Weiterbildungen, so wie auch aus meiner eigenen Lebenserfahrung. Gerne helfe ich dir deine innere Kraft und Ruhe zu erlangen, egal ob dies gesundheitliche, karmische,  Beziehungs- oder Kinderthemen sind, welche dich belasten. Ich freue mich, dich auf einem Teil deines Weges zu begleiten.”
+- Contact details section (2 columns):
+  - “Gabi Hecht - Pures Leben
+Dorfstrasse 46, 6222 Gunzwil”
+  - “Phone: 078 252 34 43
+Mail: puresleben.gunzwil@gmail.com”
+- Footer links:
+  - “Impressum”, “Datenschutz”, “Cookie-Einstellungen”
+
+6) Image content (hosted links + alt)
+- Header logo:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=480,height=286/image/124324429/28eb28af-4802-4ecd-92f9-c925c6d4013f.png
+  - Alt: No alt text available.
+- Hero/Cover image:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=800,height=400/image/124325202/6711e02c-b055-4e34-8450-51e2498de5f0.png
+  - Alt: No alt text available.
+
+7) Primary and secondary colors (HEX)
+- MainColor: #aaa43b (accent for headings in hero)
+- SecondaryColor: #ccb04c (section background)
+- Shade2 (header background): #b7cdb1
+- Black: #000000 (hero background color and buttons)
+- White: #FFFFFF (content backgrounds)
+
+
+PAGE: http://www.pures-leben.ch/home/ueber-mich/
+1) URL
+- http://www.pures-leben.ch/home/ueber-mich/
+
+2) Purpose
+- “Über mich” page with personal introduction, background, education, and motivations.
+
+3) Overall layout and page sections
+- Header with logo and navigation.
+- Two-column intro section: left image, right text.
+- Multi-column detailed biography sections (three stacked content blocks).
+- Footer with legal links.
+- Cookie banner.
+
+4) Main headings (h1–h6)
+- h2: Über mich...
+
+5) Text content (exact text)
+- Intro:
+  - “Über mich...”
+  - “"Ich bin... ICH... Frau, Ehefrau, Mami, Coach, Schmerztherapeutin, Bindegewebs- und Faszien Therapeutin uvm.
+Ich bin nicht perfekt, kein Engel, mache auch Fehler, bin aktiv, mutig, ängstlich, ruhig, Mami, besorgt, voller Freude, dankbar und manchmal werde ich sogar als etwas verrückt bezeichnet, aber eins bin ich sicher - MICH SELBST!"
+
+"Lass dir dein Leuchten nicht nehmen, nur weil es andere blendet!"
+
+"Manchmal sind die Dinge, vor denen du am meisten Angst hast sie zu tun, die Dinge, die dir die Freiheit bringen."”
+- Biography column block 1:
+  - “1981 als drittes und jüngstes Kind geboren und aufgewachsen in Hitzkirch. Meine Eltern gründeten 1983 ihre eigene Firma, zur Herstellung und Montage von Gartenschwimmbädern im privaten Bereich, unter anderem mit dem Gedanken, dass Schwimmbäder die Gesundheit und das Wohlbefinden steigern.
+
+Die physische und psychische Gesundheit und das Wohlbefinden der Menschen waren von Klein auf ein Anliegen von mir. Für die Menschen da zu sein, welche Unterstützung benötigen, war stets eine Freude und Bereicherung in meinem Leben. 
+ 
+Im Jahr 2000 feierte ich meinen Abschluss als Kaufmännische Angestellte mit Berufsmaturität. Jedoch merkte ich schon bald, dass ich nicht  glücklich bin mit  "nur" Büro. Auf der Suche nach einer erfüllenden Arbeit mit dem Mensch im Bereich Gesundheitsförderung, fand ich die Ausbildung zur Gesundheitsmasseurin (Klassische Massage, Fussreflexzonenmassage und Wickel). Diese machte ich im 2005 mit viel Freude und erlangte kurz darauf das Reiki Zertifikat und arbeitete neben dem Bürojob als Gesundheitsmasseurin. 
+Doch dann hatte im 2008 die Übernahme des Familienbetriebes, zusammen mit meinem Bruder Vorrang. Dort übernahm ich unter anderem die Abteilungen Personal und Innendienst und bildete mich weiter in den Bereichen Geschäftsführung KMU, Personalentwicklung, Business- & Personal Coaching.
+Heute arbeite ich noch immer in einem kleinen Teilzeitpensum im Familienbetrieb.
+
+Inzwischen bin ich Mutter von 3  aktiven, willensstarken Kinder. Das Familienleben fordert mich täglich aufs neue heraus, bin ich dankbar für dieses Geschenk und diese Erfahrung mich immer wieder selber zu Reflektieren und dabei noch bewusster zu werden. ”
+- Biography column block 2:
+  - “Mein Herzenswunsch, den Menschen bei den Themen mentale und körperliche Gesundheit und Bewusstseinsförderung behilflich zu sein, hat mich nie losgelassen. Im Gegenteil, mir wurde mit jeder Herausforderung, welche mir mein Leben geschenkt hat, immer bewusster, dass genau das mein Weg ist. 
+Ich durfte unter anderem an meinem eigenen Körper erfahren, dass Heilung möglich ist, auch wenn es unmöglich scheint.
+Ich habe mich stets weitergebildet, gelesen, ausprobiert aufgrund meiner eigenen Geschichte.
+
+2019-2021 habe ich die 2-jährige Ausbildung zum diplomierten ganzheitlichen Lebenscoach  an der Akademie für Psychologie und Gesundheit absolviert.
+2020 habe ich noch die Ausbildung zur OMNI Hypnose Therapeutin abgeschlossen. Mit diesem Grundstein habe ich 2020 meine eigene Praxis eröffnet. Der Erfolg der Hypnosetherapie und dem Coaching, bei chronifizierten Themen und Ängste und der schier unendlichen Möglichkeiten dieser Therapieformen begeistern mich sehr.
+Im Winter 2021 durfte ich mich noch als PSYCH-K Coach weiterbilden. Eine sehr einfache und wirkungsvolle Therapieform, welche seit den 80er Jahren weltweit erfolgreich eingesetzt wird, um Ängste und blockierende Verhaltensmuster zu lösen, sozusagen als Schlüssel zum Unterbewusstsein.
+
+2020 habe ich mich dann gewagt neben der Familie und Bürojob den Schritt zu wagen und meine eigene Praxis zu eröffnen mit integriertem Studio für Gruppenkurse, Workshops etc.”
+- Biography column block 3:
+  - “Da ich selber gerne aktiv, gesellig und sportlich bin, schätze ich den Ausgleich neben den Einzeltherapien noch Gruppenkurse anzubieten.
+Ich habe den Abschluss als Pilates-Trainerin, Liebscher & Bracht Schmerz- & Bewegungstherapie, Faszien Coach, FAYO Yoga und Body n'Brain Trainerin und biete Gruppenkurse an mit dem Fokus ganzheitliche Gesundheit und Schmerzfreiheit.
+
+Das Thema Ernährung und Darmgesundheit begleitet mich seit über 20 Jahre und daher habe ich mich entschlossen auch im Bereich Ernährung die Krankenkassen Annerkennung zu erlangen und bilde mich aktuell weiter als Ernährungsberaterin (EMR 68). Mein Zertifikat im Bereich Ayurveda  (Ernährung, ganzheitliche Gesundheit, Naturgesetze und Massage) gibt mir zusätzliche Sicherheit meine Kunden bereits jetzt schon im Bereich Ernährung und spirituelle Weiterentwicklung zu beraten. 
+
+Immer mehr Menschen leiden unter Schmerzen oder sonstigen langjährigen oder chronischen gesundheitlichen Beschwerden, das hat mich dazu gebracht die Weiterbildung als Schermerztherapeutin und Bindegewebsmassage Therapie zu machen. Es ist toll zu sehen, wie ich mit Ostheopressur Techniken oder Bindegewegsbsmassage meinen Klienten oft schnell zu Schmerzlinderung oder sogar Schmerzfreiheit verhelfen kann.
+
+Das Gebiet Bindegewebe & Faszien Therapie im Zusammenhang mit Schmerzen und chronifizierten Beschwerden und Krankheiten fasziniert mich. Auch diese Therapie ist EMR Anerkannt und kann somit über die Zusatzversicherung abgerechnet werden.
+So kann ich mein ganzheitliches Angebot abrunden von Körper, Geist und Seele und mache dank der Krankenkassen Anerkennung mein Angebot für noch mehr Menschen zugänglich.”
+  
+6) Image content (hosted links + alt)
+- Profile/portrait image:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=255,height=320/image/336691694/f7312750-82ae-411b-88b1-941a4b547803.jpg
+  - Alt: No alt text available.
+- Header logo:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=480,height=286/image/124324429/28eb28af-4802-4ecd-92f9-c925c6d4013f.png
+  - Alt: No alt text available.
+
+7) Primary and secondary colors (HEX)
+- Shade2 (header background): #b7cdb1
+- White (content backgrounds): #FFFFFF
+- MainColor: #aaa43b (theme accent)
+- SecondaryColor: #ccb04c (not used as a main background on this page)
+- Black: #000000 (global style)
+
+
+PAGE: http://www.pures-leben.ch/home/kontakt-und-team/
+1) URL
+- http://www.pures-leben.ch/home/kontakt-und-team/
+
+2) Purpose
+- Contact page with a form to send a message and a section introducing team members and related links, plus address and contact details.
+
+3) Overall layout and page sections
+- Header with logo and navigation.
+- Contact form block with heading, fields, consent note, captcha, and submit button.
+- Team & Links list section (accordion-style content with rich text).
+- Address block (“Wo du uns findest”).
+- Contact details block (“Kontaktangaben”).
+- Footer with legal links.
+- Cookie banner.
+
+4) Main headings (h1–h6)
+- h2: Was möchtest du mir mitteilen?
+- h3: Das Team & Links
+- h3: Wo du uns findest
+- h3: Kontaktangaben
+- Additional h3 headings inside the “Das Team & Links” content (names/titles) are part of the text content below.
+
+5) Text content (exact text)
+- Contact section title:
+  - “Was möchtest du mir mitteilen?”
+- Consent note under form:
+  - “Ich habe die Datenschutzerklärung zur Kenntnis genommen und erkläre mich damit einverstanden.”
+- Team & links content:
+  - “Es freut mich, ein Ort zur Verfügung zu stellen, wo wir gemeinsam zum Wohle der Gesundheit und des Wohlbefindens arbeiten können. Ich arbeite sehr gerne mit Gleichgesinnten zusammen und bin offen für Ideen.
+
+Gabi Hecht-Achermann  
+Dipl. Lebenscoach a-pg (Akademie für Psychologie und Gesundheit)
+PSYCH-K® Coach Advanced
+Dipl. OMNI Hypnose Therapeutin
+Dipl. Bindegewebs- und Faszienmassage Therapie mit EMR Anerkennung
+Zert. Liebscher und Bracht Schmerztherapeutin
+Dipl. Gesundheitsmasseurin
+Ausgebildet in Symphonie of the Cells Massage by Boyd Truman
+Zertifizierte Kursleiterin mentale Geburtsvorbereitung (basierend auf Hypnobirthing)
+Reiki Grad 1+2
+FAYO Coach (Ernährung, Achtsamkeitstrainerin und Faszien-Yoga)
+Zert. AYURVEDA Beraterin im Bereich Ernährung, Spiritualität, Psychologie, Yoga und Massage
+In Ausbildung zur Ernähurngsberaterin ADVANCED mit Krankenkassenanerkennung
+
+Zertifizierte Body Brain Activity® Trainerin
+
+Dipl. Pilates Trainerin
+Zertifikat Faszien-Coach
+
+ Ätherische Öle DoTerra Aromatherapie und Naturprodukte & Ringana Naturprodukte Beraterin
+
+
+Raum für Rituale - Desirée Held
+Zertifizierte Ritual-Fachfrau
+Meditationslehrerin
+Sozialarbeit FH, Hochschule LU
+www.raumfuerrituale.ch
+
+Larissas Hauora - Larissa Lenz
+Drogistin
+Heilpraktikerin
+Yogalehrerin
+www.larissas-hauora.ch
+
+Irene Achermann - Boden unter den Füssen
+Dipl. Lebenscoach a-pg
+Dipl. Fussreflexzonentherapeutin
+www.ireneachermann.ch
+
+Heike Brandmaier
+Dipl. Lebenscoach a-pg
+Craniosakraltherapeutin i.A.
+Zertifizierte Babymassage-Kursleitern
+Zertifizierte Buschblüten Therapeutin
+Zertifikat Buschblüten für Kinderseelen
+www.heikebrandmaier.ch
+                                             
+Ruedi Hecht
+Dipl. Rettungssanitäter HF
+ProWin Berater (Nachhaltige und natürliche Produkte für den Haushalt und Alltag für Tier und Mensch)
+Beratungstermin vereinbaren   ruedi.hecht@gmx.ch”
+- Address:
+  - “Dorfstrasse 46
+6222 Gunzwil”
+- Contact details:
+  - “Pures Leben - Gabi Hecht
+E-Mail Adresse       puresleben.gunzwil@gmail.com
+Telefonnummer       078 252 3443”
+
+6) Image content (hosted links + alt)
+- Header logo:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=480,height=286/image/124324429/28eb28af-4802-4ecd-92f9-c925c6d4013f.png
+  - Alt: No alt text available.
+
+7) Primary and secondary colors (HEX)
+- Shade2 (header background): #b7cdb1
+- SecondaryColor (list section background): #ccb04c
+- Buttons: Black #000000
+- White (content backgrounds): #FFFFFF
+- MainColor: #aaa43b (theme accent)
+
+
+PAGE: http://www.pures-leben.ch/ernaehungsberatung/
+1) URL
+- http://www.pures-leben.ch/ernaehungsberatung/
+
+2) Purpose
+- Standalone page summarizing the “Ernährungsberatung” (nutrition counseling) offering with an introductory explanation.
+
+3) Overall layout and page sections
+- Header with logo and navigation.
+- Cover-like section with a headline, descriptive paragraph, and a large image.
+- Footer with legal links.
+- Cookie banner.
+
+4) Main headings (h1–h6)
+- h2: Ernährungsberatung
+
+5) Text content (exact text)
+- “Ernährungsberatung
+Gerne berate ich dich zum Thema Ernährung und Diätetik. Mit 26 Jahren hatte ich massive gesundheitliche Probleme, die klassische Medizin wusste irgendwann nicht mehr weiter und mir wurde gesagt, meine Darmbeschwerden seien unheilbar und ich müsse lernen damit zu leben. Nach langem hin und her erkannte ich, wie wichtig eine ganzheitlich bewusste Lebensweise ist, diese beinhaltet neben der Ernährung auch die Bewegung (Körper) und  die mentale Gesundheit. Das Zusammenspiel von Körper, Geist und Seele ist essentiell und läuft immer auch über den Magen/Darm. Der Zusammenhang von chronischen Schmerzen, diversen chronischen Krankheiten, Depression, uvm ist heute längst bewiesen. Heute weiss ich, was alles möglich ist, wenn das Mikrobiom und die Verdauung gut funktioniert. Und ich möchte dir helfen, falls auch du unter körperlichen oder psychischen Problemen leidest.”
+
+6) Image content (hosted links + alt)
+- Cover image:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1707/image/ccca1738-0ed2-4502-b7fd-c03277057681.jpg
+  - Alt: No alt text available.
+- Header logo:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=480,height=286/image/124324429/28eb28af-4802-4ecd-92f9-c925c6d4013f.png
+  - Alt: No alt text available.
+
+7) Primary and secondary colors (HEX)
+- White (cover container background): #FFFFFF
+- Shade2 (header background): #b7cdb1
+- Black (global styles/buttons): #000000
+- MainColor: #aaa43b (theme accent)
+
+
+PAGE: http://www.pures-leben.ch/massage-und-schmerztherapie/
+1) URL
+- http://www.pures-leben.ch/massage-und-schmerztherapie/
+
+2) Purpose
+- Services page outlining multiple bodywork and pain therapy offerings, each with a brief description and link to the price list.
+
+3) Overall layout and page sections
+- Header with logo and navigation.
+- Services grid/list (cards), each with:
+  - Image
+  - Title (h3)
+  - Description paragraph(s)
+  - “Preisliste” button linking to /angebot-und-preise/preise/
+- Footer with legal links.
+- Cookie banner.
+
+4) Main headings (h1–h6)
+- h3 for each service card:
+  - Bindegewebsmassage & Faszien Therapie
+  - Klassische Massage & AromaTouch Massage
+  - Fussreflexzonen Therapie
+  - Lymphdrainage
+  - Schmerztherapie nach L & B
+  - Symphonie of the Cell
+  - Reiki Grad I & II 
+  - AYURVEDA Massage und Beratung
+
+5) Text content (exact text)
+- “Bindegewebsmassage & Faszien Therapie
+Bindegewebsmassage & Faszien Therapie mit Krankenkassen-Anerkennung (EMR). Hilft bei sehr vielen subakuten und chronischen Schmerzen und auch Krankheiten, da es eine Reflexzonentherapie ist. Die reflektorische Wirkung auf die Organsysteme ist wissenschaftlich belegt und sehr wirkungsvoll. Du hast schon vieles versucht, kommst nicht weiter, dann melde dich. Gerne schauen wir was wir gemeinsam erreichen können.”
+- “Klassische Massage & AromaTouch Massage
+Die klassische Massage löst Verspannungen und Schmerzen am ganzen Körper und wirkt sich positiv auf den ganzen menschlichen Mechanismus aus.
+Eine Massage ist jedoch nicht nur bei Verspannungen und Schmerzen eine gute Sache, sondern wirkt auch positiv auf das emotionale und hormonelle System. Gerne biete ich auch stressausgleichende und Aromatherapie Massagen an. Das hilft, um die Resilienz und somit die innere Ruhe zu fördern oder auch bei emotionalen Themen oder Traumas zu unterstützen. Du bist auf der Suche nach einer ganzheitlichen Massage, dann freue ich mich darauf.”
+- “Fussreflexzonen Therapie
+ Fussreflexzonen-Therapie ist eine weit verbreitete und bekannt Reflexzonentherapie. Dabei wird über die Fussreflexzonen das ganze Körpersystem bearbeitet. Sie ist gut geeignet bei fast allen körperlichen Problemen, sei dies hormonell oder auch aufgrund von belasteten Organsystemen, wie z.b. Verdauung, Atemwege, etc. Kann jedoch auch auf emotionaler Ebene sehr hilfreich sein, denn es eignet sich sehr gut zum Ausgleichen des Nervensystems und vieles mehr. Eine sehr vielseitige und wirkungsvolle Therapie.”
+- “Lymphdrainage
+Lymphdrainage ist eine sehr wirkungsvolle Therapie bei Ödemen nach Operationen oder nach Unfällen und Sportverletzungen. Wirkt lindernd bei schweren Beinen oder bei Kopfschmerzen und Migräne. Und ist super für eine schnellere Regeneration nach dem Sport.
+Die Lymphdrainage fördert den Abtransport von Stoffwechselendprodukten, dies wirkt unterstützend für dein Immunsystem und kann auch bei Allergien wie Heuschnupfen helfen.”
+- “Schmerztherapie nach L & B
+Gezielte Schmerztherapie nach Liebscher & Bracht kann bei fast allen Arten von Schmerzen sehr hilfreich sein. Das ganzheitliche Konzept beinhaltet die Therapie, Übungen, Faszien Rollen und die Ernährung. Gerne berate ich dich individuell bei Bedarf.”
+- “Symphonie of the Cell
+Symphonie of the Cell Massage hilft zusätzlich mit therapeutischen ätherischen Ölen gezielt ein Symptom, Krankheit, Stress etc zu behandeln. Es gibt diverse Abläufe welche weltweite Bekanntheit erlangt haben. Eine klare Abfolge von 100% reinen ätherischen Ölen werden einmassiert und diese wirken tief auf den menschlichen Mechanismus ein. Es wird sozusagen eine Symphonie der Zellen hergestellt, welche die Heilung und Regeneration fördern und unterstützen kann.”
+- “Reiki Grad I & II 
+Reiki Energiearbeit aus dem japanischen von Dr. Mikao Usui
+
+Reiki aktiviert Selbstheilungskräfte und bringt Körper, Geist und Seele in Einklang.
+
+Quantenphysik funktioniert auch am Körper. Gerne unterstütze ich diesen Prozess noch mit deiner persönlichen ätherische Öle Duftmischung. Die Aromatherapie unterstützt den energetischen Prozess. ”
+- “AYURVEDA Massage und Beratung
+Ich habe die Basis Ausbildung im Bereich Ayurveda Ernährung und Massage abgeschlossen.
+Ayurveda beinhaltet "das Wissen des Lebens" und es hilft in fast allen Lebenssituationen einen Weg zurück zum ganzheitlichen Wohlbefinden und Gesundheit zu finden. 
+Ernährungsberatung nach Ayurveda, ayurvedische Massage, Marmapunktmassage, Meditation, Yoga Asanas, mentale Beratung, spirituelle Beratung uvm. sind Teil meines Aufgabengebietes.”
+
+6) Image content (hosted links + alt)
+- Each service card image (examples below; all have alt: No alt text available.):
+  - Bindegewebsmassage & Faszien Therapie:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1920/image/336691959/7172911b-fded-4f02-9f4b-b1f684809113.jpg
+  - Klassische Massage & AromaTouch Massage:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1280,height=960/image/339931293/2782463c-9c1f-4df1-9c3e-e1e5bd968d63.jpg
+  - Fussreflexzonen Therapie:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1920,height=1440/image/505814765/4fc67248-73a8-4cf4-9ed4-90c8aaaeec77.jpg
+  - Lymphdrainage:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1600,height=1200/image/505814856/778a9569-eb86-4bd9-9dd2-f406a84cc2a8.jpg
+  - Schmerztherapie nach L & B:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1600,height=1200/image/505814856/778a9569-eb86-4bd9-9dd2-f406a84cc2a8.jpg
+  - Symphonie of the Cell:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1920/image/116749384/33365e34-2387-4d6d-8168-d13d14c62ab6.jpg
+  - Reiki Grad I & II:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1920/image/878d7855-599a-47df-96a7-a825995036f5.jpg
+  - AYURVEDA Massage und Beratung:
+    - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=800,height=600/image/340326807/e85e90c9-c160-4e52-96bf-b1b9a3244d93.jpg
+- Header logo:
+  - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=480,height=286/image/124324429/28eb28af-4802-4ecd-92f9-c925c6d4013f.png
+  - Alt: No alt text available.
+
+7) Primary and secondary colors (HEX)
+- Section background (services container): #ccb04c (SecondaryColor)
+- Card backgrounds: #b7cdb1 (Shade2)
+- Buttons: #000000 (Black)
+- White (inner content areas): #FFFFFF
+- MainColor: #aaa43b (theme accent)
+
+
+Global notes for rebuilding
+- Navigation labels (from header): Home (with subpages “Über mich”, “Kontakt & Team”), Ernähungsberatung, Massage & Schmerztherapie, Coaching & Hypnose, Angebot & Preise (with multiple subpages), Gruppenkurse, Aktuelles.
+- Fonts referenced: Dancing Script (headings), EB Garamond (body).
+- Color palette available throughout:
+  - Black: #000000
+  - White: #FFFFFF
+  - Shade1: #704244
+  - Shade2: #b7cdb1
+  - MainColor: #aaa43b
+  - SecondaryColor: #ccb04c
+- Footer links on every page: Impressum, Datenschutz, Cookie-Einstellungen.
+- Images often lack alt text in the HTML; use “No alt text available.” as specified.

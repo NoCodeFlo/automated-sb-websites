@@ -11,12 +11,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@duckduckgo/autoconsent": "^14.18.0",
+    "@ghostery/adblocker-puppeteer": "^2.11.6",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "fs-extra": "^11.3.1",
     "node-fetch": "^3.3.2",
-    "puppeteer": "^24.16.2",
+    "puppeteer": "^24.17.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "v0-sdk": "^0.7.1"
   }
 }

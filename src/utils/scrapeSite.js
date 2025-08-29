@@ -1,10 +1,14 @@
-//Puppeteer crawler
-import puppeteer from 'puppeteer';
+// Puppeteer crawler with stealth evasion
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import fs from 'fs/promises';
 import path from 'path';
 import { URL } from 'url';
 
 const MAX_DEPTH = 2;
+
+// Apply stealth plugin to reduce automation fingerprints
+puppeteer.use(StealthPlugin());
 
 export async function scrapeWebsite(rootUrl, outputBasePath) {
   const browser = await puppeteer.launch();

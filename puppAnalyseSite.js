@@ -1,10 +1,14 @@
 import 'dotenv/config';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import fs from 'fs/promises';
 import path from 'path';
 import { URL } from 'url';
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
+// Apply stealth plugin globally
+puppeteer.use(StealthPlugin());
 const rootUrl = "https://lichtweg.li/";
 const urlSlug = new URL(rootUrl).hostname.replace(/[^a-z0-9]/gi, '_');
 const OUTPUT_BASE_DIR = "output";

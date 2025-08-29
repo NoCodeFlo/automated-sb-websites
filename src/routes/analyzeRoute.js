@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
     await fs.writeFile(fullDevPromptPath, devPromptText);
 
     // Step 5: Create Vercel project and chat
-    const projectId = await createVercelProject(domainSlug);
+    const projectId = await createVercelProject(`Website rebuild: ${url}`);
     const chatId = await createVercelChat(projectId, devPromptPath);
 
     return res.status(200).json({

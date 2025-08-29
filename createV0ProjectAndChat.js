@@ -2,13 +2,29 @@ import 'dotenv/config';
 import fs from 'fs/promises';
 import path from 'path';
 import { createVercelProject, createVercelChat } from './src/utils/vercelClient.js';
+import { slugifyUrl } from './src/utils/slugifyUrl.js';
 
 // Example usage script to create a v0 project & chat using the same
 // client and env var as the main pipeline.
 
 const VERCEL_API_KEY = process.env.VERCEL_API_KEY;
-const rootUrl = process.env.ROOT_URL || 'https://lichtweg.li/';
-const slug = new URL(rootUrl).hostname.replace(/[^a-z0-9]/gi, '_');
+
+// Accept URL via CLI flag or env var; no hardcoded default.
+function parseUrlArg() {
+  const idx = process.argv.findIndex(a => a === '--url' || a === '-u');
+  if (idx !== -1 && process.argv[idx + 1]) return process.argv[idx + 1];
+  const inline = process.argv.find(a => a.startsWith('--url='));
+  if (inline) return inline.split('=')[1];
+  return process.env.URL || process.env.ROOT_URL || '';
+}
+
+const rootUrl = parseUrlArg();
+if (!rootUrl) {
+  console.error('❌ Missing URL. Provide with --url <https://...> or set URL env.');
+  process.exit(1);
+}
+
+const slug = slugifyUrl(rootUrl);
 const devPromptFile = path.join('output', slug, `${slug}_developer_prompt.txt`);
 
 if (!VERCEL_API_KEY) {

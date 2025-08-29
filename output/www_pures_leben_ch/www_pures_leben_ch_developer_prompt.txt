@@ -1,137 +1,220 @@
-Developer prompt: Rebuild the human-verification interstitial for www.pures-leben.ch
+Project prompt: Rebuild “Pures Leben” website
 
-1) URL to rebuild
-- https://www.pures-leben.ch/
+1) Target URL to rebuild
+- Base domain: http://www.pures-leben.ch/
+- Rebuild the pages listed below using the existing content, structure, tone, and imagery.
 
-2) Project overview and goals
-- Rebuild the currently visible page at the URL above. The page is a Cloudflare “Just a moment…” human-verification interstitial (Turnstile challenge), not the site’s actual homepage.
-- Reuse the exact existing content and structure captured in the analysis. Do not invent or add new content or pages.
-- Preserve the current design language (colors, minimalist layout, neutral mood) while improving usability, accessibility, responsiveness, and code quality.
-- Deliver a clean, standards-compliant, accessible, responsive single page that visually matches and feels like a modernized, polished version of the current interstitial.
-- Include existing external link(s) exactly as-is (Cloudflare attribution link). There are no social media links on this page.
+2) Overview and goals
+- Goal: Produce a modern, clean, warm, and calm redesign that improves readability, accessibility, and mobile responsiveness while preserving the existing content, site structure, and overall design language (colors, mood, and layout logic).
+- Reuse all provided copy verbatim (do not paraphrase or invent new content).
+- Reuse the existing image assets via their hosted URLs (provided below).
+- Maintain existing navigation labels and footer legal links.
+- Keep the visual language consistent with the current site: soft greens, warm gold accents, white backgrounds, generous whitespace, serif body text, script display headings.
+- Improve usability through clear hierarchy, consistent spacing, accessible color contrast, and simplified layouts.
+- If there are any existing external links (e.g., partner sites, email addresses), include them as external links. If any social links exist on any page, include them as external links only; do not attempt to replicate social content.
 
-3) Section-by-section breakdown (single page)
-Implement the following as semantic, accessible HTML. Use meaningful roles and ARIA for status messages and live regions. Structure and copy must remain exactly as listed.
+3) Global implementation guidelines
+- Fonts:
+  - Headings: Dancing Script (display)
+  - Body: EB Garamond
+  - Fallbacks: Georgia, Times, serif for body; cursive fallback for script
+- Color tokens (define as CSS variables):
+  - --color-black: #000000
+  - --color-white: #FFFFFF
+  - --color-shade1: #704244
+  - --color-shade2: #b7cdb1
+  - --color-main: #aaa43b
+  - --color-secondary: #ccb04c
+- Global components:
+  - Header: left-aligned logo image, right-aligned nav with dropdown for subpages on “Home” and “Angebot & Preise”. Sticky on scroll for desktop; hamburger menu for mobile.
+  - Footer: include links “Impressum”, “Datenschutz”, “Cookie-Einstellungen” (link to the existing URLs on the current site if available; else keep as placeholder anchors for now).
+  - Cookie banner: simple dismissible banner with localStorage consent flag; links to “Datenschutz”.
+- Typographic scale and spacing:
+  - One h1 per page, logical h2/h3 hierarchy after that.
+  - Comfortable line length (55–75 characters) and line-height (1.6 body).
+  - Generous section spacing (min 56–72px on desktop; 32–40px mobile).
+- Buttons/links:
+  - Primary buttons: black background (#000000), white text; 12px–16px border radius; clear focus states.
+  - Links in body copy: underlined; ensure contrast against background.
+- Accessibility:
+  - Provide meaningful semantic structure; use nav/ul for menus; main/section/article/aside where relevant.
+  - Ensure contrast: if text rests on colored backgrounds (e.g., #ccb04c), use a white card/container or dark text to meet WCAG AA (4.5:1).
+  - Keyboard accessible menus, accordions, and focus outlines.
+  - Images must include alt attributes. Use the given note “No alt text available.” if no alt was provided.
+  - Include a “Skip to content” link.
+- Responsiveness & performance:
+  - Mobile-first CSS; test at 360px, 768px, 1024px, 1280px breakpoints.
+  - Use modern CSS (flex/grid) for layout.
+  - Add width/height to images to prevent layout shift; loading="lazy"; decoding="async".
+- Navigation structure (labels only; use the same labels and hierarchy):
+  - Home
+    - Über mich
+    - Kontakt & Team
+  - Ernähungsberatung
+  - Massage & Schmerztherapie
+  - Coaching & Hypnose
+  - Angebot & Preise
+  - Gruppenkurse
+  - Aktuelles
+  - For pages not in this brief, include the menu items but route them to their existing page URLs on the current site if available, or leave as non-functional placeholders (no new content).
 
-A. Document and global
-- <html lang="en"> since the captured copy is English.
-- <head>
-  - <meta charset="utf-8">
-  - <meta name="viewport" content="width=device-width, initial-scale=1">
-  - <title>www.pures-leben.ch</title> (Keep minimal; do not invent other text)
-  - No remote fonts; use system fonts for performance.
-  - Support prefers-color-scheme for light/dark themes.
-- <body>
-  - Use a single, centered layout that scales gracefully from mobile to desktop.
+4) Page-by-page specification
 
-B. Main wrapper (role="main")
-- Container with max-width ~640px, centered vertically and horizontally with adequate padding and spacing.
-- h1 (site identifier):
-  - Text: “www.pures-leben.ch”
-- h2 (instructional subheading):
-  - Text: “Verify you are human by completing the action below.”
-- Challenge widget area (placeholder for Cloudflare Turnstile)
-  - A focusable region (role="region", aria-label="Human verification challenge") that will host the challenge widget if ever integrated.
-  - Do not add any new controls not present in the original. This is a placeholder container only.
-- Core explanatory message (paragraph, static text below the widget):
-  - Text: “www.pures-leben.ch needs to review the security of your connection before proceeding.”
-- Spinner/loader (hidden by default)
-  - Visually consistent animated spinner; expose via class toggle. Respect prefers-reduced-motion (provide a non-animated fallback).
-  - Accessible name/label is not required if purely decorative (aria-hidden="true").
-- Success message area (hidden by default; revealed on “success” state)
-  - h2: “Verification successful”
-  - Paragraph: “Waiting for www.pures-leben.ch to respond...”
-  - Wrap in a live region: role="status" aria-live="assertive".
-  - Include a decorative success icon (checkmark) adjacent to the heading; mark icon aria-hidden="true".
-- Error/notice area (optional hidden region for parity with original CSS icons)
-  - Reserve a region that could show an error icon/message if needed. Keep it hidden by default. Do not invent error text.
+A) Homepage: http://www.pures-leben.ch/
+- Purpose: Intro to “Pures Leben”, philosophy, vision, offerings; quick contact; footer legal.
+- Sections to implement:
+  1) Global header
+     - Logo (image below), primary navigation (see global nav).
+     - Background color for header: Shade2 #b7cdb1.
+     - Logo (left), nav (right). On mobile: hamburger.
+     - Logo image:
+       - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=480,height=286/image/124324429/28eb28af-4802-4ecd-92f9-c925c6d4013f.png
+       - alt: “No alt text available.”
+  2) Hero/Cover
+     - Full-width background image with an overlay to ensure text contrast.
+     - Background image:
+       - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=800,height=400/image/124325202/6711e02c-b055-4e34-8450-51e2498de5f0.png
+       - alt: “No alt text available.”
+     - Headline (h1): “Gut aufgehoben sein”
+     - Intro paragraph: use the exact text from analysis (full paragraph starting “Wenn der Alltag an deinen Kräften zehrt…” through “…so dass die Energie wieder frei fliessen kann.”).
+  3) About trio section (three columns on desktop; stacked on mobile)
+     - Subsections each with h3 and paragraph(s):
+       - Meine Motivation (h3) + exact provided text
+       - Meine Vision (h3) + exact provided text
+       - Mein Angebot (h3) + exact provided text
+     - Background: white; consider subtle separators and plenty of whitespace.
+  4) Contact details (2 columns on desktop; stacked on mobile)
+     - Left column: “Gabi Hecht - Pures Leben Dorfstrasse 46, 6222 Gunzwil”
+     - Right column: “Phone: 078 252 34 43 Mail: puresleben.gunzwil@gmail.com”
+     - Make phone and email clickable (tel:, mailto:).
+  5) Footer
+     - Include links: “Impressum”, “Datenschutz”, “Cookie-Einstellungen” (same labels).
+  6) Cookie banner
+     - Dismissible overlay with consent text and a link to “Datenschutz”.
 
-C. Noscript fallback
-- <noscript> block with:
-  - h2: “Enable JavaScript and cookies to continue”
-  - Provide the text only; do not add extra guidance beyond what exists.
+B) Über mich: http://www.pures-leben.ch/home/ueber-mich/
+- Purpose: Personal introduction, background, education, motivations.
+- Sections:
+  1) Header (same as global)
+  2) Intro section (two columns)
+     - Left: Profile image (fixed proportion; center-cropped if needed)
+       - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=255,height=320/image/336691694/f7312750-82ae-411b-88b1-941a4b547803.jpg
+       - alt: “No alt text available.”
+     - Right: h2 “Über mich...” and the three quoted paragraphs exactly as provided (keep quotes and line breaks).
+  3) Biography blocks (stacked)
+     - Three content blocks with the exact text provided in the analysis under Biography block 1, 2, and 3. Preserve paragraph breaks.
+     - Use a readable width and spacing.
+  4) Footer + Cookie banner (as global)
 
-D. Footer
-- Diagnostic wrapper:
-  - Text: “Ray ID: 9708ad504e0fb654” (use exactly this value from the captured page; do not generate dynamic IDs)
-- Attribution:
-  - Text: “Performance & security by Cloudflare”
-  - Link “Cloudflare” to https://www.cloudflare.com?utm_source=challenge&utm_campaign=m
+C) Kontakt & Team: http://www.pures-leben.ch/home/kontakt-und-team/
+- Purpose: Contact form, team and partner links, address and contact details.
+- Sections:
+  1) Header (global)
+  2) Contact form
+     - Title (h2): “Was möchtest du mir mitteilen?”
+     - Fields (client-side validation, labels, aria-describedby):
+       - Name (required)
+       - E-Mail (required, type=email)
+       - Telefonnummer (optional, type=tel)
+       - Nachricht (required, textarea)
+       - Consent checkbox (required): “Ich habe die Datenschutzerklärung zur Kenntnis genommen und erkläre mich damit einverstanden.”
+     - Submit button (black).
+     - Add a basic honeypot field for spam mitigation. Do not add backend hooks here.
+  3) Das Team & Links
+     - Title (h3): “Das Team & Links”
+     - Use an accessible accordion or simple toggles per person/section OR a clean list with subheadings; ensure keyboard operability.
+     - Content: paste the entire provided text block exactly as given, preserving line breaks and the listed credentials.
+     - External links inside this block:
+       - www.raumfuerrituale.ch
+       - www.larissas-hauora.ch
+       - www.ireneachermann.ch
+       - www.heikebrandmaier.ch
+       - Ensure these open in a new tab with rel="noopener".
+     - Email: “ruedi.hecht@gmx.ch” should be mailto.
+  4) Wo du uns findest (Address block)
+     - Title (h3): “Wo du uns findest”
+     - Address text exactly:
+       - “Dorfstrasse 46
+         6222 Gunzwil”
+     - Consider adding a static map link to Google Maps via the address (external).
+  5) Kontaktangaben (Contact details block)
+     - Title (h3): “Kontaktangaben”
+     - Exact text:
+       - “Pures Leben - Gabi Hecht
+          E-Mail Adresse       puresleben.gunzwil@gmail.com
+          Telefonnummer       078 252 3443”
+     - Make email/phone clickable.
+  6) Footer + Cookie banner (global)
 
-4) Images and icons
-- There are no <img> elements or hosted images to reference. Do not add new images.
-- Use small inline SVGs or CSS data URIs for the success and error icons (decorative only, aria-hidden="true"). No external icon libraries.
+D) Ernährungsberatung: http://www.pures-leben.ch/ernaehungsberatung/
+- Purpose: Summary of the “Ernährungsberatung” offering.
+- Sections:
+  1) Header (global)
+  2) Cover-like section
+     - Heading (h2): “Ernährungsberatung”
+     - Paragraph: use the exact provided text block starting with “Gerne berate ich dich zum Thema Ernährung…” to “…falls auch du unter körperlichen oder psychischen Problemen leidest.”
+     - Large image below the text (full-bleed on large screens, contained on mobile):
+       - https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1707/image/ccca1738-0ed2-4502-b7fd-c03277057681.jpg
+       - alt: “No alt text available.”
+  3) Footer + Cookie banner (global)
 
-5) Frontend tech to consider
-- HTML5 + modern, vanilla CSS (Flexbox/Grid) + minimal vanilla JS for state toggling.
-- Optional: SCSS or CSS variables for theming; no frameworks required.
-- Do not integrate Cloudflare’s actual Turnstile or any third-party scripts; this is a front-end rebuild only.
+E) Massage & Schmerztherapie: http://www.pures-leben.ch/massage-und-schmerztherapie/
+- Purpose: Grid/list of services, each with image, title, description, and “Preisliste” button.
+- Sections:
+  1) Header (global)
+  2) Services grid
+     - Use a responsive card layout (2–3 columns desktop; 1 column mobile).
+     - Background for the section can lightly nod to SecondaryColor #ccb04c or Shade2 #b7cdb1; ensure text contrast by placing content on white cards.
+     - Each card:
+       - Image (top), Title (h3), Description (exact text), Button “Preisliste” linking to “/angebot-und-preise/preise/” (open in same tab).
+     - Cards content and images:
+       a) Bindegewebsmassage & Faszien Therapie
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1920/image/336691959/7172911b-fded-4f02-9f4b-b1f684809113.jpg
+       b) Klassische Massage & AromaTouch Massage
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1280,height=960/image/339931293/2782463c-9c1f-4df1-9c3e-e1e5bd968d63.jpg
+       c) Fussreflexzonen Therapie
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1920,height=1440/image/505814765/4fc67248-73a8-4cf4-9ed4-90c8aaaeec77.jpg
+       d) Lymphdrainage
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1600,height=1200/image/505814856/778a9569-eb86-4bd9-9d2-f406a84cc2a8.jpg
+       e) Schmerztherapie nach L & B
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=1600,height=1200/image/505814856/778a9569-eb86-4bd9-9d2-f406a84cc2a8.jpg
+       f) Symphonie of the Cell
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1920/image/116749384/33365e34-2387-4d6d-8168-d13d14c62ab6.jpg
+       g) Reiki Grad I & II
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=2560,height=1920/image/878d7855-599a-47df-96a7-a825995036f5.jpg
+       h) AYURVEDA Massage und Beratung
+          - Image: https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,width=800,height=600/image/340326807/e85e90c9-c160-4e52-96bf-b1b9a3244d93.jpg
+     - For each card, paste the exact text provided in the analysis for that service.
+  3) Footer + Cookie banner (global)
 
-6) Constraints and content that must not change
-- Do not add, remove, or rewrite copy. Use exactly:
-  - “www.pures-leben.ch”
-  - “Verify you are human by completing the action below.”
-  - “www.pures-leben.ch needs to review the security of your connection before proceeding.”
-  - “Verification successful”
-  - “Waiting for www.pures-leben.ch to respond...”
-  - “Enable JavaScript and cookies to continue”
-  - “Ray ID: 9708ad504e0fb654”
-  - “Performance & security by Cloudflare”
-- Preserve the existing Cloudflare link URL exactly.
-- No new pages, sections, or links. No social embeds.
+5) Specific frontend technologies to consider (optional)
+- Option A (simple/static): Semantic HTML5 + modern CSS (Grid/Flex) + lightweight vanilla JS for nav/accordion/cookie banner.
+- Option B (component-based): Next.js/React or Astro with server-side rendering for performance, component-driven UI for header/footer/cards/accordion.
+- Either way, keep bundle size low, avoid heavy dependencies, and prioritize accessibility and responsiveness.
 
-7) Tone and visual feel
-- Modern, clean, neutral, and minimal.
-- Clear hierarchy, generous whitespace, consistent spacing, and readable system fonts.
-- Respect the original palette and its light/dark variants.
+6) Constraints and must-not-change content
+- Do not invent new copy. Use the exact text blocks provided in the analysis for each section.
+- Preserve the navigation labels and the overall information architecture.
+- Keep the color palette consistent with the given HEX values.
+- Use the provided images via their URLs. Do not replace or generate new imagery.
+- Maintain and include all external links and emails exactly as provided (e.g., partner websites, mailto, tel).
+- If any Instagram/Facebook links exist on the current site, include them as external links only (open in new tab); do not recreate social feeds.
+- Use alt="No alt text available." for images where no alt text was provided in the analysis.
 
-Color palette (from the captured styles; implement with CSS variables and dark-mode overrides):
-- Base text (light): #313131
-- Background (light): #ffffff
-- Background (dark): #222222
-- Border/light gray: #d9d9d9
-- Link/button default (light): #0051c3
-- Link/button hover/active (light): #003681
-- Link hover accent: #ee730a
-- Error icon (light): #fc574a
-- Dark theme accent red: #b20f03
-- Button color (dark): #4693ff
-- Spinner ring grays: #595959, #999999
+7) Tone and feel of the new design
+- Modern, clean, warm, calming, and trustworthy.
+- Soft, natural palette with ample white space.
+- Gentle rounded corners on cards and buttons; subtle shadows for depth.
+- Imagery should feel supportive and unobtrusive; ensure text remains the focus.
 
-8) Accessibility and usability requirements
-- Semantic structure: main, headings in logical order, footer.
-- Announce status updates:
-  - role="status" aria-live="assertive" for the success state.
-  - aria-live="polite" for neutral progress if needed.
-- Focus management:
-  - Ensure focus-visible outlines are clearly visible in both themes.
-  - When states change (e.g., success), do not steal focus; rely on live regions.
-- Color contrast: WCAG AA minimum (4.5:1 for text).
-- Reduced motion: Honor prefers-reduced-motion for spinner/animations.
-- Keyboard-only support: All interactive regions must be reachable and discernible (the widget container region should be focusable if it would hold an embedded control).
-
-9) Responsive behavior
-- Mobile-first. Comfortable layout from 320px up.
-- Centered content with max-width ~640px; scale typography and spacing fluidly.
-- Avoid horizontal scrolling; ensure footer wraps nicely on small screens.
-
-10) Interactions/state handling (front-end only)
-- Default state: Show headings, widget container, and the explanatory message.
-- Pending state: When “verification” begins (e.g., class added for demo), show spinner and keep instructional text visible.
-- Success state: Reveal the success block and “Waiting …” message; keep spinner visible or swap to a subtle success indicator.
-- Error state: Reserve styling for an error icon region, but keep it hidden unless toggled for demonstration. Do not introduce new error copy.
-
-11) Performance and quality
-- No external font loads; use system fonts.
-- Ship minimal CSS and JS; avoid blocking the first render.
-- Validate HTML; test in modern evergreen browsers and iOS/Android mobile browsers.
-
-12) Deliverables
-- A single, production-ready HTML/CSS/JS implementation of the page described above that:
-  - Reuses the exact existing text content and structure
-  - Preserves the original design language and color palette (with light/dark support)
-  - Is responsive, accessible, and performant
-  - Includes the existing external Cloudflare link and the Ray ID text exactly as captured
-
-Notes
-- Do not attempt to bypass or replicate Cloudflare’s live verification logic. This task is strictly a front-end rebuild of the currently visible interstitial using the existing content and visual language.
+8) Deliverables (design and implementation)
+- Responsive, accessible rebuild of the following pages with the sections and content specified:
+  - Homepage
+  - Über mich
+  - Kontakt & Team (with accessible accordion/list)
+  - Ernährungsberatung
+  - Massage & Schmerztherapie (services grid with “Preisliste” links)
+- Global header, navigation (including listed menu labels and hierarchy), footer with legal links, and a functional cookie banner.
+- Consistent design system (colors, typography, spacing, buttons, cards) applied across all pages.
+- Frontend form implementation on the Kontakt page with validation and consent checkbox (front-end only).
+- All images referenced via their original hosted URLs with lazy loading and dimensions to minimize layout shift.
