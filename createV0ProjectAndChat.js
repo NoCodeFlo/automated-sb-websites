@@ -25,7 +25,7 @@ if (!rootUrl) {
 }
 
 const slug = slugifyUrl(rootUrl);
-const devPromptFile = path.join('output', slug, `${slug}_developer_prompt.txt`);
+const siteAnalysisFile = path.join('output', slug, `${slug}_site_analysis.txt`);
 
 if (!VERCEL_API_KEY) {
   console.error('❌ Missing VERCEL_API_KEY in .env');
@@ -34,13 +34,13 @@ if (!VERCEL_API_KEY) {
 
 (async () => {
   try {
-    const promptContent = await fs.readFile(devPromptFile, 'utf-8');
+    const promptContent = await fs.readFile(siteAnalysisFile, 'utf-8');
 
     const projectName = `Website rebuild: ${rootUrl}`;
     const projectId = await createVercelProject(projectName);
     console.log('✅ Project created:', projectId);
 
-    const chatId = await createVercelChat(projectId, devPromptFile);
+    const chatId = await createVercelChat(projectId, siteAnalysisFile);
     console.log('✅ Chat created:', chatId);
 
     await fs.writeFile(path.join('output', slug, `${slug}_v0_projectId.txt`), projectId);

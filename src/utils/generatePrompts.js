@@ -5,91 +5,130 @@
 
 const GPT_CHAR_LIMIT = 120000 * 3; // Soft cap to keep prompts manageable
 
-export function buildAnalysisPrompt(htmlMap) {
-  let prompt = `
-You are a professional web designer tasked with analyzing the structure and content of a real website. You will receive the full raw HTML of the homepage and all sub-pages.
+function normalizeUrl(u) {
+  try {
+    const url = new URL((u || '').trim());
+    url.hash = '';
+    url.search = '';
+    if (!url.pathname || url.pathname === '') url.pathname = '/';
+    return url;
+  } catch {
+    return null;
+  }
+}
 
-Your goal is to help a new designer rebuild the website based on the actual structure and content — reusing existing materials wherever possible.
+function variantsForHomepage(u) {
+  const url = normalizeUrl(u);
+  if (!url) return [];
 
-Please follow these instructions carefully:
+  const variants = new Set();
 
----
-
-**Text content**:
-- Use the **exact text found in the HTML** wherever possible.
-- If a page or section contains **no visible text**, try to come up with **suitable placeholder text** based on the business context (e.g., acupuncture clinic), as long as it is **generic and plausible**.
-- However, you must **never invent or guess** any **names, contact details, addresses, prices, schedules, or personal data**.
-
----
-
-**Images**:
-- Use "alt" attributes to describe images when available.
-- If no "alt" text exists, write “No alt text available.”
-
----
-
-**Design & structure**:
-For each page, describe:
-1. The **page URL**
-2. The **purpose** of the page (based on structure and content)
-3. The **overall layout** and page sections
-4. The **main headings** ("h1"–"h6")
-5. The **text content** (reusing exact HTML text if possible)
-6. The **image content** (provide link to hosted images)
-7. The **primary and secondary colors (in HEX)** if visible in inline styles or CSS
-
----
-
-Please format your output clearly, grouping the analysis by page.
-`.trim();
-
-  for (const [url, html] of Object.entries(htmlMap)) {
-    prompt += `\n\n--- PAGE: ${url} ---\n${html}`;
+  const hosts = new Set([url.host]);
+  // Toggle www
+  if (url.hostname.startsWith('www.')) {
+    hosts.add(url.host.replace('www.', ''));
+    } else {
+    hosts.add(url.host.replace(url.hostname, `www.${url.hostname}`));
   }
 
-  return prompt;
+  const schemes = new Set([url.protocol.replace(':', ''), url.protocol === 'https:' ? 'http' : 'https']);
+  const paths = new Set(['/','/index','/index.html','/index.htm','/index.php','/default.aspx']);
+
+  for (const scheme of schemes) {
+    for (const host of hosts) {
+      for (const path of paths) {
+        const v = `${scheme}://${host}${path}`;
+        variants.add(v);
+        // Also add with trailing slash if not already
+        if (!v.endsWith('/')) variants.add(`${v}/`);
+      }
+    }
+  }
+
+  // Also include exact given URL and its trailing-slash variants
+  const exact = url.toString();
+  variants.add(exact);
+  if (exact.endsWith('/')) variants.add(exact.slice(0, -1));
+  else variants.add(`${exact}/`);
+
+  return Array.from(variants);
 }
 
-export function buildDevPrompt(analysisText) {
-  return `
-You are an experienced senior web designer and mentor.
+function resolveHomepageHtml(htmlMap, rootUrl) {
+  // 1) Try exact and common homepage variants for the provided URL
+  const candidates = variantsForHomepage(rootUrl);
+  for (const key of candidates) {
+    if (htmlMap[key]) return htmlMap[key];
+  }
 
-You are reviewing the following detailed analysis of a website (its purpose, structure, content, design elements, color schemes, etc.).
+  // 2) Try to locate a homepage-like entry among scraped URLs sharing the same registrable host
+  const base = normalizeUrl(rootUrl);
+  if (base) {
+    const baseHost = base.hostname.replace(/^www\./, '');
+    const homePaths = new Set(['/','/index','/index.html','/index.htm','/index.php','/default.aspx']);
+    for (const [key, html] of Object.entries(htmlMap)) {
+      try {
+        const k = new URL(key);
+        const kHost = k.hostname.replace(/^www\./, '');
+        let p = k.pathname || '/';
+        // Normalize trailing slash
+        if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
+        if (kHost === baseHost && homePaths.has(p)) {
+          return html;
+    }
+      } catch {/* ignore invalid URLs in map */}
+    }
+  }
 
-Your task is to generate a clear, structured and actionable prompt for a **junior web developer** who will be responsible for rebuilding this website.
+  // 3) Fail fast: do not use another page, ensure strict homepage usage
+  throw new Error('Homepage HTML not found in scraped results.');
+}
 
-The new version of the site should:
-- Reuse the **existing content** (text, structure, purpose)
-- Not come up with new content that is fully made up
-- Stay consistent with the **existing design language** (e.g., colors, layout, mood)
-- Apply **modern web design best practices** for usability, accessibility, responsiveness, and simplicity
-- Result in a **visually improved, more user-friendly version** of the original site
-- If there are any pages linking to social media (Instagram, Facebook), include the existing external link on the website, but don't try to rebuild any of the social media pages
+export function buildAnalysisPrompt(htmlMap, rootUrl) {
+  // Strictly resolve the homepage HTML; do not fall back to other pages
+  const homepageHtml = resolveHomepageHtml(htmlMap, rootUrl);
 
-Make sure your developer prompt includes:
-1. The URL of the website that will be rebuilt
-2. An overview of the project and goals
-3. A section-by-section breakdown of what the developer should implement for each page
-4. When mentioning images, provide the direct URL to the hosted image if possible (only if it exists)
-5. Specific frontend technologies or frameworks to consider (optional)
-6. Any constraints or important content that must not be changed
-7. Tone and feel of the new design (e.g., modern, clean, warm, etc.)
-8. Deliverables: focus on the design and implementation of the page and do not specifically mention any plugins, configurations or creation of README documentation
+  const template = `
+You are a professional web designer tasked with analyzing the structure and content of a real website. take a look at the follwoing website HTML code of the home page:
 
----
+INSERT HTML CODE HERE
 
-Below is the original website analysis:
+1. analyse it core structure: amount of pages/subpages, color scheme, menu, banner, images, contact info, etc. 
+2. anaylse its content: name of compay, slogan, offered services, more detailed text/descriptions once done 
+3. after the analysis, use your knowledge as a world class UX designer and Software developer to provide feedback what needs to be done to keep the identity of the page (colors, logo, content), while still introducing a more modern look and feel to the page. 
+4. provide links to relevant existing images that can be reused in the modern page directly within the prompt so that they can be accessed
+5. create a prompt that allows a web developer to build a more modern version of this website into a one-page site. you can shorten /alter text and also reduce the amount of subapges in order to achieve this. 
 
-${analysisText}
+You are an agent - please keep going until the user’s query is completely resolved, before ending your turn and yielding back to the user. Only terminate your turn when you are sure that the problem is solved. If you are not sure about file content or codebase structure pertaining to the user’s request, use your tools to read files and gather the relevant information: do NOT guess or make up an answer. You MUST plan extensively before each function call, and reflect extensively on the outcomes of the previous function calls. DO NOT do this entire process by making function calls only, as this can impair your ability to solve the problem and think insightfully. 
+Provide back only the full prompt with all details relevant to build the page. Structure the prompt in the following sections:
+- Intro sentence ("e.g. Build a modern one-page website for ...")
+- Project Overview
+- Tech & Approach
+- Color & Theming (preserve palette)
+- Layout (one-page with anchor nav)
+- Copy (final German strings)
+- Navigation labels (anchors)
+- Components & Interactions
+- Assets
+- Metadata & SEO
+- Example JSON-LD (adapt with real data)
+- Tailwind utility hints
+- Accessibility specifics
+- Content details for service card
+- Routing/Anchors (one-page)
+- QA checklist (developer)
+- Deliverables
+
 `.trim();
+
+  // Insert homepage HTML at the placeholder position
+  return template.replace('INSERT HTML CODE HERE', homepageHtml);
 }
 
-export async function generatePrompts(htmlMap /*, urlSlug, siteOutputDir */) {
-  // Build prompts only; do not call GPT or write files here.
-  const analysisPrompt = buildAnalysisPrompt(htmlMap).slice(0, GPT_CHAR_LIMIT);
+export async function generatePrompts(htmlMap, rootUrl /*, siteOutputDir */) {
+  // Build the single prompt (v0-ready) using HOMEPAGE HTML only.
+  const analysisPrompt = buildAnalysisPrompt(htmlMap, rootUrl).slice(0, GPT_CHAR_LIMIT);
 
-  // The developer prompt should be built by the caller using buildDevPrompt()
-  // after obtaining analysis text from GPT.
+  // Single-pass mode: only one prompt is produced and sent to GPT.
   return { analysisPrompt };
 }
-
