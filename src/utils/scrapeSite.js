@@ -22,6 +22,16 @@ export async function scrapeWebsite(rootUrl, outputBasePath) {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   await fs.mkdir(SCREENSHOT_DIR, { recursive: true });
 
+  function sameHost(a, b) {
+    try {
+      const ah = new URL(a).hostname.replace(/^www\./, '');
+      const bh = new URL(b).hostname.replace(/^www\./, '');
+      return ah === bh;
+    } catch {
+      return false;
+    }
+  }
+
   async function crawl(url, depth = 0) {
     if (visited.has(url) || depth > MAX_DEPTH) return;
     visited.add(url);
@@ -61,7 +71,9 @@ export async function scrapeWebsite(rootUrl, outputBasePath) {
             return null;
           }
         })
-        .filter(href => href && href.startsWith(rootUrl));
+        .filter(Boolean)
+        // Only follow links on the same host (ignore www prefix differences)
+        .filter(href => sameHost(href, rootUrl));
 
       await page.close();
 

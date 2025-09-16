@@ -83,6 +83,7 @@ async function main() {
       baseUrl,
       body: { name: args.name },
       idempotencyKey: projIdem,
+      retry: { attempts: 1, baseMs: 300 },
     });
     const projectId = projectRes?.project?.id || projectRes?.id;
     if (!projectId) {
@@ -95,6 +96,7 @@ async function main() {
       baseUrl,
       body: { projectId, message },
       idempotencyKey: chatIdem,
+      retry: { attempts: 1, baseMs: 300 },
     });
     const chatId = chatRes?.id || chatRes?.chat?.id || chatRes?.data?.id;
     const versionId = chatRes?.latestVersion?.id || chatRes?.chat?.latestVersion?.id;
@@ -111,6 +113,7 @@ async function main() {
     const deployRes = await fetchJson('POST', '/deployments', {
       baseUrl,
       body: { projectId, chatId, versionId: finalVersionId },
+      retry: { attempts: 1, baseMs: 300 },
     });
 
     const deploymentId = deployRes?.id || deployRes?.deployment?.id;
