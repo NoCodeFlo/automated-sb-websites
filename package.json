@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "type": "module",
   "main": "script.js",
+  "engines": {
+    "node": ">=20"
+  },
   "bin": {
     "v0-create-deploy": "src/cli/v0-create-deploy.js"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "v0:create-deploy": "node src/cli/v0-create-deploy.js"
   },

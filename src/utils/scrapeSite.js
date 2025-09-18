@@ -11,7 +11,15 @@ const MAX_DEPTH = 2;
 puppeteer.use(StealthPlugin());
 
 export async function scrapeWebsite(rootUrl, outputBasePath) {
-  const browser = await puppeteer.launch();
+  const launchArgs = [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
+    '--no-first-run',
+    '--no-zygote',
+  ];
+  const browser = await puppeteer.launch({ args: launchArgs, headless: true });
   const visited = new Set();
   const htmlMap = {};
 

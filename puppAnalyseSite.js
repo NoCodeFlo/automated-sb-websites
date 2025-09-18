@@ -12,7 +12,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 puppeteer.use(StealthPlugin());
 const rootUrl = "https://lichtweg.li/";
 const urlSlug = new URL(rootUrl).hostname.replace(/[^a-z0-9]/gi, '_');
-const OUTPUT_BASE_DIR = "output";
+const OUTPUT_BASE_DIR = process.env.OUTPUT_DIR || "output";
 const WEBSITE_DIR = path.join(OUTPUT_BASE_DIR, urlSlug);
 const SCREENSHOT_DIR = path.join(WEBSITE_DIR, "screenshots");
 const SAVE_HTML = true;

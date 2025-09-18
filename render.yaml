@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: website-analyzer
+    env: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    autoDeploy: true
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGIN
+        value: https://app.dieagentur.net
+      # Set secrets in Render dashboard for these keys:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: V0_API_KEY
+        sync: false
+      - key: VERCEL_API_KEY
+        sync: false
+      - key: API_KEY
+        sync: false
+      - key: OUTPUT_DIR
+        value: /data/output
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 2
+

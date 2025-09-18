@@ -25,7 +25,8 @@ if (!rootUrl) {
 }
 
 const slug = slugifyUrl(rootUrl);
-const siteAnalysisFile = path.join('output', slug, `${slug}_site_analysis.txt`);
+const OUTPUT_BASE_DIR = process.env.OUTPUT_DIR || 'output';
+const siteAnalysisFile = path.join(OUTPUT_BASE_DIR, slug, `${slug}_site_analysis.txt`);
 
 if (!VERCEL_API_KEY) {
   console.error('❌ Missing VERCEL_API_KEY in .env');

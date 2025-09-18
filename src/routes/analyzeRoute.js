@@ -18,13 +18,14 @@ router.post('/', async (req, res) => {
   }
 
   const domainSlug = slugifyUrl(url);
-  const siteOutputDir = path.join('output', domainSlug);
+  const OUTPUT_BASE_DIR = process.env.OUTPUT_DIR || 'output';
+  const siteOutputDir = path.join(OUTPUT_BASE_DIR, domainSlug);
 
   try {
     console.log(`🚀 Starting analysis for: ${url}`);
 
     // Step 1: Scrape site
-    const { htmlMap } = await scrapeWebsite(url, 'output');
+    const { htmlMap } = await scrapeWebsite(url, OUTPUT_BASE_DIR);
 
     // Derive a short business name from homepage title or domain for Vercel project naming/aliasing
     function getHomepageHtml(map, rootUrl) {
