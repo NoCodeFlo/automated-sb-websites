@@ -1,6 +1,6 @@
 // Puppeteer crawler with stealth evasion
 import puppeteer from 'puppeteer-extra';
-import { executablePath as chromeExecutablePath } from 'puppeteer';
+import { executablePath as chromeExecutablePath } from 'puppeteer-core';
 import chromium from '@sparticuz/chromium';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import fs from 'fs/promises';

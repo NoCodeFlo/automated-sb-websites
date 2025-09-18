@@ -26,10 +26,10 @@
     "express": "^5.1.0",
     "fs-extra": "^11.3.1",
     "node-fetch": "^3.3.2",
-    "puppeteer": "^24.17.1",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "v0-sdk": "^0.7.1",
-    "@sparticuz/chromium": "latest"
+    "@sparticuz/chromium": "latest",
+    "puppeteer-core": "^24.17.1"
   }
 }
