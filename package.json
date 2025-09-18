@@ -31,6 +31,6 @@
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "v0-sdk": "^0.7.1",
-    "@sparticuz/chromium": "^128.0.0"
+    "@sparticuz/chromium": "latest"
   }
 }
