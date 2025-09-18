@@ -1,0 +1,20 @@
+[Unit]
+Description=Website Analyzer API
+After=network.target
+
+[Service]
+Type=simple
+# IMPORTANT: Set this to your repo path on the server
+WorkingDirectory=/srv/automated-sb-websites
+ExecStart=/usr/bin/node app.js
+# IMPORTANT: Point to your .env path
+EnvironmentFile=/srv/automated-sb-websites/.env
+Restart=always
+RestartSec=5
+# Change user/group as needed
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target
+
