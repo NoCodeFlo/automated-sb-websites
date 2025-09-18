@@ -13,8 +13,7 @@ const MAX_DEPTH = 2;
 puppeteer.use(StealthPlugin());
 
 export async function scrapeWebsite(rootUrl, outputBasePath) {
-  // Configure Chromium path for container/serverless environments
-  const preferChromium = !!(process.env.RENDER || process.env.USE_SPARTICUZ_CHROMIUM === '1');
+  // Try to resolve a Chromium binary that works in container/serverless first
   let args = [
     '--no-sandbox',
     '--disable-setuid-sandbox',
@@ -26,18 +25,19 @@ export async function scrapeWebsite(rootUrl, outputBasePath) {
   let executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || '';
   let headless = true;
 
-  if (preferChromium) {
-    try {
-      executablePath = await chromium.executablePath(process.env.CHROMIUM_EXEC_PATH);
+  let usingChromium = false;
+  try {
+    const ep = await chromium.executablePath(process.env.CHROMIUM_EXEC_PATH);
+    if (ep) {
+      executablePath = ep;
       args = [...chromium.args, ...args];
       headless = chromium.headless;
-    } catch {
-      // fall back below
+      usingChromium = true;
     }
-  }
+  } catch {/* ignore and fall back */}
 
-  if (!executablePath) {
-    try { executablePath = chromeExecutablePath(); } catch {}
+  if (!usingChromium && !executablePath) {
+    try { executablePath = chromeExecutablePath(); } catch {/* ignore */}
   }
 
   const browser = await puppeteer.launch({ args, headless, executablePath });
