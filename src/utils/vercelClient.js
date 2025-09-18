@@ -12,8 +12,9 @@ export async function createVercelProject(projectName) {
     baseUrl: BASE_URL,
     body: { name: projectName },
     idempotencyKey: idem,
-    // Ensure only one network attempt (no retries) to avoid duplicate billing
-    retry: { attempts: 1, baseMs: 300 },
+    // Safe to retry due to idempotency key
+    retry: { attempts: 3, baseMs: 400 },
+    timeoutMs: 45_000,
   });
   const id = res?.id || res?.project?.id;
   if (!id) throw new Error('❌ Failed to create project: missing id');
@@ -29,8 +30,9 @@ export async function createVercelChat(projectId, developerPromptPath) {
       baseUrl: BASE_URL,
       body: { projectId, message },
       idempotencyKey: idem,
-      // Ensure only one network attempt (no retries) to avoid duplicate billing
-      retry: { attempts: 1, baseMs: 300 },
+      // Safe to retry due to idempotency key; helps on transient socket issues
+      retry: { attempts: 3, baseMs: 400 },
+      timeoutMs: 60_000,
     });
     const id = res?.id || res?.chat?.id;
     if (!id) throw new Error('❌ Failed to create chat: missing id');

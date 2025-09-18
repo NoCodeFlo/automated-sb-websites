@@ -8,6 +8,8 @@ This project provides an end-to-end pipeline for analyzing and redesigning websi
 4. Optionally creates a v0 (Vercel) project, chat, and deployment (returns public URL)
 5. Saves all outputs in a structured local folder
 
+Note: The scraper sanitizes HTML upfront (removing scripts, styles, templates, comments, noisy attributes, and other non-content elements while preserving the <title> and core body content). All downstream prompts use this cleaned HTML directly; there is no additional cleaning step.
+
 ---
 
 ## 🏗 Folder Structure
@@ -77,6 +79,9 @@ For each analyzed website, the following files are saved under output/<domain-sl
 	•	iterations/: Per-step prompts and responses for traceability
 
 When `VERCEL_API_KEY` (or `V0_API_KEY`) is set and `SKIP_V0` is not set, the API also creates a v0 project + chat, waits for the initial chat version, deploys it, and returns deployment info in the response JSON under `deployment.webUrl`.
+
+Optional:
+- Set `VERCEL_ALIAS` (or `V0_ALIAS`) to a domain/subdomain to attempt assigning an alias to the final deployment (uses Vercel API `POST /v2/aliases`). If the alias requires adding the domain to the project first, the API will attempt to add it and retry.
 
 ⸻
 

@@ -41,17 +41,39 @@ export async function scrapeWebsite(rootUrl, outputBasePath) {
       console.log(`\uD83C\uDF10 Visiting (depth ${depth}): ${url}`);
       await page.goto(url, { waitUntil: 'networkidle2' });
 
-      const html = await page.content();
+      let html = await page.content();
+      // Inline cleaning: remove non-content elements and noisy attrs
+      const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      const titleText = titleMatch ? titleMatch[1].trim() : '';
+      html = html
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[\s\S]*?<\/style>/gi, '')
+        .replace(/<noscript[\s\S]*?<\/noscript>/gi, '')
+        .replace(/<template[\s\S]*?<\/template>/gi, '')
+        .replace(/<!--([\s\S]*?)-->/g, '')
+        .replace(/<svg[\s\S]*?<\/svg>/gi, '');
+      const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+      let cleanedHtml = bodyMatch ? bodyMatch[1] : html;
+      cleanedHtml = cleanedHtml.replace(/\s(on[a-z]+|style|data-[\w-]+)=("[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+      cleanedHtml = cleanedHtml
+        .replace(/\r/g, '')
+        .replace(/\t/g, ' ')
+        .replace(/\n\s*\n+/g, '\n')
+        .replace(/[ \f\v]+/g, ' ')
+        .trim();
+      if (titleText) {
+        cleanedHtml = `<title>${titleText}</title>\n${cleanedHtml}`;
+      }
       const visibleText = await page.evaluate(() => document.body?.innerText || '');
       const safeName = url.replace(rootUrl, '').replace(/[^a-z0-9]/gi, '_') || 'home';
 
-      htmlMap[url] = html;
+      htmlMap[url] = cleanedHtml;
 
       const htmlPath = path.join(OUTPUT_DIR, `page-${safeName}.html`);
       const txtPath = path.join(OUTPUT_DIR, `page-${safeName}.txt`);
       const screenshotPath = path.join(SCREENSHOT_DIR, `page-${safeName}.png`);
 
-      await fs.writeFile(htmlPath, html);
+      await fs.writeFile(htmlPath, cleanedHtml);
       await fs.writeFile(txtPath, visibleText);
       await page.screenshot({ path: screenshotPath, fullPage: true });
 

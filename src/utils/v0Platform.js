@@ -1,6 +1,7 @@
 import { fetchJson } from './http.js';
 
 const DEFAULT_BASE_URL = process.env.V0_API_BASE || 'https://api.v0.dev/v1';
+const VERCEL_API_BASE = 'https://api.vercel.com';
 
 export async function getChat(chatId, baseUrl = DEFAULT_BASE_URL) {
   return fetchJson('GET', `/chats/${chatId}`, { baseUrl });
@@ -40,6 +41,7 @@ export async function createDeployment({ projectId, chatId, versionId }, baseUrl
     id: res?.id || res?.deployment?.id,
     webUrl: res?.webUrl || res?.deployment?.webUrl,
     inspectorUrl: res?.inspectorUrl || res?.deployment?.inspectorUrl,
+    status: res?.status || res?.deployment?.status || 'unknown',
   };
 
   // If v0 accepted the request but later reports errors, surface them
@@ -88,4 +90,76 @@ export async function waitForDeploymentErrors(deploymentId, {
     await new Promise(r => setTimeout(r, intervalMs));
   }
   return null;
+}
+
+// Fetch a single deployment (normalized)
+export async function getDeployment(deploymentId, baseUrl = DEFAULT_BASE_URL) {
+  const res = await fetchJson('GET', `/deployments/${deploymentId}`, { baseUrl });
+  const d = res?.deployment || res || {};
+  return {
+    id: d.id || deploymentId,
+    status: d.status || 'unknown',
+    webUrl: d.webUrl || d.url || d.web_url || null,
+    inspectorUrl: d.inspectorUrl || d.inspector_url || null,
+  };
+}
+
+// Wait for a deployment to become completed (or fail)
+export async function waitForDeploymentReady(deploymentId, {
+  baseUrl = DEFAULT_BASE_URL,
+  timeoutMs = 180_000,
+  intervalMs = 2000,
+} = {}) {
+  const start = Date.now();
+  let last = { status: 'unknown' };
+  while (Date.now() - start < timeoutMs) {
+    last = await getDeployment(deploymentId, baseUrl);
+    const s = (last.status || '').toLowerCase();
+    if (s === 'completed' || s === 'ready' || s === 'succeeded' || s === 'success') {
+      return last;
+    }
+    if (s === 'failed' || s === 'error') {
+      const err = await waitForDeploymentErrors(deploymentId, { baseUrl, timeoutMs: 1_000, intervalMs: 250 });
+      const msg = err ? (typeof err === 'string' ? err : JSON.stringify(err).slice(0, 500)) : 'Deployment failed';
+      const e = new Error(msg);
+      e.deployment = last;
+      throw e;
+    }
+    await new Promise(r => setTimeout(r, intervalMs));
+  }
+  throw new Error(`Timed out waiting for deployment ${deploymentId} to be ready (last status: ${last.status})`);
+}
+
+// Optional: assign an alias (domain) to a deployment via Vercel API
+export async function assignAlias({ deploymentId, alias, baseUrl = VERCEL_API_BASE }) {
+  if (!deploymentId || !alias) {
+    throw new Error('assignAlias requires deploymentId and alias');
+  }
+  const res = await fetchJson('POST', '/v2/aliases', {
+    baseUrl,
+    body: { deploymentId, alias },
+    retry: { attempts: 1, baseMs: 200 },
+  });
+  return res;
+}
+
+// Optional: add a domain to a project (best-effort; may not be needed for vercel.app subdomains)
+export async function addProjectDomain({ projectId, domain, baseUrl = VERCEL_API_BASE }) {
+  if (!projectId || !domain) {
+    throw new Error('addProjectDomain requires projectId and domain');
+  }
+  // Try v10 endpoint; fall back to v9 if needed
+  try {
+    return await fetchJson('POST', `/v10/projects/${projectId}/domains`, {
+      baseUrl,
+      body: { name: domain },
+      retry: { attempts: 1, baseMs: 200 },
+    });
+  } catch (e) {
+    return await fetchJson('POST', `/v9/projects/${projectId}/domains`, {
+      baseUrl,
+      body: { name: domain },
+      retry: { attempts: 1, baseMs: 200 },
+    });
+  }
 }

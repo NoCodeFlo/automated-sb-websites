@@ -26,6 +26,76 @@ router.post('/', async (req, res) => {
     // Step 1: Scrape site
     const { htmlMap } = await scrapeWebsite(url, 'output');
 
+    // Derive a short business name from homepage title or domain for Vercel project naming/aliasing
+    function getHomepageHtml(map, rootUrl) {
+      if (map[rootUrl]) return map[rootUrl];
+      try {
+        const u = new URL(rootUrl);
+        const variants = new Set([
+          rootUrl,
+          rootUrl.endsWith('/') ? rootUrl.slice(0, -1) : `${rootUrl}/`,
+          `${u.protocol}//${u.host}/`,
+          `${u.protocol}//${u.host}`,
+          `https://${u.host}/`,
+          `http://${u.host}/`,
+          `https://www.${u.hostname.replace(/^www\./,'')}/`,
+          `http://www.${u.hostname.replace(/^www\./,'')}/`,
+          `https://${u.hostname.replace(/^www\./,'')}/`,
+          `http://${u.hostname.replace(/^www\./,'')}/`,
+        ]);
+        for (const k of variants) { if (map[k]) return map[k]; }
+      } catch {}
+      // Fallback: first HTML value
+      const first = Object.values(map)[0];
+      return typeof first === 'string' ? first : '';
+    }
+
+    function deriveProjectName(map, rootUrl) {
+      const html = getHomepageHtml(map, rootUrl) || '';
+      const tMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      let title = tMatch ? (tMatch[1] || '').trim() : '';
+      // Split on common separators and pick a meaningful token
+      const SEP = /[\-|–—:•·\|]/;
+      const STOP = new Set(['home','startseite','willkommen','welcome','homepage','accueil']);
+      let candidate = '';
+      if (title) {
+        const parts = title.split(SEP).map(s => s.trim()).filter(Boolean);
+        // Prefer the longest token that isn't a stopword
+        const ranked = parts
+          .map(s => s.replace(/[\s\u00A0]+/g,' ').trim())
+          .filter(s => s && !STOP.has(s.toLowerCase()))
+          .sort((a,b)=> b.length - a.length);
+        candidate = ranked[0] || parts[0] || '';
+      }
+      if (!candidate) {
+        try {
+          const h = new URL(rootUrl).hostname.replace(/^www\./,'');
+          const label = h.split('.')[0];
+          candidate = label.replace(/[-_]+/g,' ').trim();
+        } catch { candidate = 'website'; }
+      }
+      // Shorten overly long names
+      if (candidate.length > 50) candidate = candidate.slice(0,50).trim();
+      // Capitalize words
+      candidate = candidate.replace(/\b([a-z])/g, (m, c) => c.toUpperCase());
+      return candidate;
+    }
+
+    function slugForSubdomain(name) {
+      const base = (name || 'site')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // strip accents
+        .toLowerCase()
+        .replace(/&/g,'-and-')
+        .replace(/[^a-z0-9]+/g,'-')
+        .replace(/^-+|-+$/g,'')
+        .slice(0, 63) || 'site';
+      return base;
+    }
+
+    const projectName = deriveProjectName(htmlMap, url);
+    const projectSlug = slugForSubdomain(projectName);
+    const projectSubdomain = `${projectSlug}.vercel.app`;
+
     // Step 2: Generate iterative prompts (homepage + up to 4 refinements)
     const { analysisPrompt, refinementPages } = await generatePrompts(htmlMap, url, siteOutputDir);
 
@@ -76,7 +146,7 @@ router.post('/', async (req, res) => {
       console.log('⏭️  No VERCEL_API_KEY found: skipping Vercel project/chat creation.');
     } else {
       const { createVercelProject, createVercelChat } = await import('../utils/vercelClient.js');
-      const { waitForChatVersion, createDeployment } = await import('../utils/v0Platform.js');
+      const { waitForChatVersion, createDeployment, waitForDeploymentReady, assignAlias, addProjectDomain, getChat } = await import('../utils/v0Platform.js');
       const { fetchJson } = await import('../utils/http.js');
 
       const projectIdPath = path.join(siteOutputDir, `${domainSlug}_v0_projectId.txt`);
@@ -96,7 +166,7 @@ router.post('/', async (req, res) => {
           existingDeployment = JSON.parse(raw);
         } catch {}
 
-        const finalProjectId = existingProjectId || await createVercelProject(`Website rebuild: ${url}`);
+        const finalProjectId = existingProjectId || await createVercelProject(projectName);
         if (!existingProjectId) await fs.writeFile(projectIdPath, finalProjectId);
 
         const finalChatId = existingChatId || await createVercelChat(finalProjectId, siteAnalysisPath);
@@ -106,8 +176,33 @@ router.post('/', async (req, res) => {
         let finalDeployment = existingDeployment;
         let createdNewDeployment = false;
         if (!finalDeployment) {
+          // Ensure chat latest version is fully completed
           const versionId = await waitForChatVersion(finalChatId);
+          // Extra safety: ensure the chat detail doesn't show errors
+          try {
+            const chatDetail = await getChat(finalChatId);
+            const v = chatDetail?.latestVersion;
+            const errs = (v?.errors && v.errors.length > 0) ? v.errors : [];
+            if (errs.length > 0) {
+              throw new Error(`Chat latest version has errors: ${JSON.stringify(errs).slice(0, 500)}`);
+            }
+          } catch (chatErr) {
+            throw chatErr;
+          }
+          
           finalDeployment = await createDeployment({ projectId: finalProjectId, chatId: finalChatId, versionId });
+          // Wait for deployment to become ready and return status
+          try {
+            const ready = await waitForDeploymentReady(finalDeployment.id);
+            finalDeployment.status = ready.status || 'completed';
+            finalDeployment.webUrl = ready.webUrl || finalDeployment.webUrl;
+            finalDeployment.inspectorUrl = ready.inspectorUrl || finalDeployment.inspectorUrl;
+          } catch (depErr) {
+            // Surface failure with partial details
+            const e = new Error(`Deployment did not become ready: ${depErr.message}`);
+            e.deployment = finalDeployment;
+            throw e;
+          }
           await fs.writeFile(deploymentPath, JSON.stringify(finalDeployment, null, 2));
           createdNewDeployment = true;
         }
@@ -118,6 +213,28 @@ router.post('/', async (req, res) => {
       projectId = result.finalProjectId;
       chatId = result.finalChatId;
       deployment = result.finalDeployment;
+
+      // Optional: assign custom alias if configured
+      // Always use project name as subdomain for alias, e.g. <project>.vercel.app
+      const desiredAlias = projectSubdomain;
+      let aliasResult = null;
+      let aliasToUse = desiredAlias;
+      if (deployment?.id && desiredAlias) {
+        try {
+          // For *.vercel.app aliases, directly assign; no domain-adding needed
+          aliasResult = await assignAlias({ deploymentId: deployment.id, alias: desiredAlias });
+        } catch (e) {
+          console.warn('⚠️ Alias step encountered an error:', e.message || String(e));
+          // If alias is taken or not allowed, attempt a few suffix variants
+          for (let i = 0; i < 3 && !aliasResult; i++) {
+            const suffix = Math.random().toString(36).slice(2, 6);
+            aliasToUse = `${projectSlug}-${suffix}.vercel.app`;
+            try {
+              aliasResult = await assignAlias({ deploymentId: deployment.id, alias: aliasToUse });
+            } catch { /* try next */ }
+          }
+        }
+      }
 
       // Final step: notify webhook on new publish
       if (deployment?.webUrl && result.createdNewDeployment) {
@@ -140,11 +257,18 @@ router.post('/', async (req, res) => {
       projectId,
       chatId,
       deployment,
+      status: {
+        chat: 'completed',
+        deployment: deployment?.status || 'unknown',
+        alias: aliasResult ? 'assigned' : 'failed',
+      },
       files: {
         siteAnalysisPath,
         fullAnalysisPromptPath,
         // Single-pass: no separate developer prompt files
-      }
+      },
+      projectName,
+      alias: aliasToUse
     });
 
   } catch (err) {

@@ -5,6 +5,8 @@
 
 const GPT_CHAR_LIMIT = 120000 * 3; // Soft cap to keep prompts manageable
 
+// Note: HTML is already cleaned by the scraper. No additional sanitization here.
+
 function normalizeUrl(u) {
   try {
     const url = new URL((u || '').trim());

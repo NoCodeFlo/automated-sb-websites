@@ -18,6 +18,7 @@ export async function fetchJson(method, url, opts = {}) {
     headers = {},
     baseUrl = DEFAULT_BASE_URL,
     retry = { attempts: 3, baseMs: 300 },
+    timeoutMs = 30_000,
     idempotencyKey,
     auth = true,
   } = opts;
@@ -43,11 +44,14 @@ export async function fetchJson(method, url, opts = {}) {
   let lastErr;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
+      const controller = new AbortController();
+      const t = setTimeout(() => controller.abort(), timeoutMs);
       const res = await fetch(finalUrl, {
         method,
         headers: authHeaders,
         body: body ? JSON.stringify(body) : undefined,
-      });
+        signal: controller.signal,
+      }).finally(() => clearTimeout(t));
 
       if (!res.ok) {
         const status = res.status;
@@ -82,6 +86,7 @@ export async function fetchJson(method, url, opts = {}) {
       if (status && status !== 429 && (status < 500 || status > 599)) {
         throw err;
       }
+      // For network errors (e.g., ECONNRESET/socket hang up/AbortError), retry if attempts remain
       if (attempt < maxAttempts) {
         const delay = baseMs * Math.pow(2, attempt - 1);
         await sleep(delay);
